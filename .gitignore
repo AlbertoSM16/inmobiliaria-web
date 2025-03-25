@@ -5,11 +5,13 @@
 /tmp
 /out-tsc
 /bazel-out
+/public # Añadido para ignorar la carpeta public
 
 # Node
 /node_modules
 npm-debug.log
 yarn-error.log
+package-lock.json # Añadido para ignorar el package-lock.json
 
 # IDEs and editors
 .idea/
