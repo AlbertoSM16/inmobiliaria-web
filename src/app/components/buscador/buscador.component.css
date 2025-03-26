@@ -1,0 +1,18 @@
+.btn-toggle {
+  background-color: white;
+  border: 1px solid #ddd;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.btn-toggle.active {
+  color: #0b2a47; 
+  border: 2px solid #0b2a47;
+  background-color: #fef2f8;
+}
+
+.btn-check:checked + .btn-toggle {
+    background-color: #fef2f8; /* fondo rosita */
+    color: #0b2a47;            /* texto fucsia */
+    border: 2px solid #0b2a47; /* borde fucsia */
+  }

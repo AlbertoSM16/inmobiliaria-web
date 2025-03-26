@@ -1,0 +1,11 @@
+.header-inmobiliaria {
+    background-color: #0b2a47; 
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .logo-inmobiliaria {
+    height: 20%;
+    width: 15%;
+    object-fit: cover;
+  }
+  

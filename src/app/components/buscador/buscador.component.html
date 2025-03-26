@@ -1,3 +1,26 @@
-<div>
+<div class="container d-flex justify-content-center">
     
+    <div class="btn-group toggle-group" role="group">
+        <input type="radio" class="btn-check" name="tipoOperacion" id="comprar" value="comprar" autocomplete="off" [(ngModel)]="tipoContrato">
+        <label class="btn btn-toggle" for="comprar">Comprar</label>
+      
+        <input type="radio" class="btn-check" name="tipoOperacion" id="alquilar" value="alquilar" autocomplete="off" [(ngModel)]="tipoContrato">
+        <label class="btn btn-toggle" for="alquilar">Alquilar</label>
+    
+      </div>
+      
+      
+    <div class="col-2 ms-2">
+        <select class="form-select form-select-md" aria-label="Tipo de inmueble">
+            <option selected>Tipo de inmueble</option>
+            <option value="casa" [(ngModel)]="tipoInmueble">Casa</option>
+            <option value="piso" [(ngModel)]="tipoInmueble">Piso</option>
+            <option value="chalet" [(ngModel)]="tipoInmueble">Chalet</option>
+            <option value="cochera" [(ngModel)]="tipoInmueble">Cochera</option>
+        </select>
+    </div>
+    <div class="d-flex">
+        <input type="text" class="form-control ms-2 me-4 col-5" id="buscador-localidad-text" placeholder="Localidad">
+        <button type="button" class="btn btn-primary">Buscar</button>
+    </div>
 </div>
