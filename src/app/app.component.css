@@ -7,3 +7,8 @@ body {
   html {
     scroll-behavior: smooth;
   }
+
+  main {
+    position: relative;
+    overflow: hidden;
+  }

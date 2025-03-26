@@ -1,31 +1,36 @@
-import { Routes,RouterModule } from '@angular/router';
+import { Routes,RouterLink } from '@angular/router';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HousesListComponent } from './pages/houses-list/houses-list.component';
 import { PersonalInfoComponent } from './pages/personal-info/personal-info.component';
-
+import { ContactComponent } from './pages/contact/contact.component';
 
 export const routes: Routes = [
     {
-        path: '',
-        pathMatch:'full',
-        redirectTo:'home'
+      path: '',
+      component: HomeComponent,
+      data: { animation: 'HomePage' } 
     },
     {
-        path: 'home',
-        component: HomeComponent
+      path: 'home',
+      component: HomeComponent,
+      data: { animation: 'ContactPage' }
     },
     {
-        path:"houses-list",
-        component:HousesListComponent
+      path: 'contact',
+      component: ContactComponent,
+      data: { animation: 'ContactPage' }
     },
     {
-        path:"login",
-        component:LoginComponent
+      path: 'quienes-somos',
+      component: PersonalInfoComponent,
+      data: { animation: 'AboutPage' }
     },
     {
-        path:"quienes-somos",
-        component:PersonalInfoComponent
+      path: 'houses-list',
+      component: HousesListComponent,
+      data: { animation: 'HousesPage' }
     }
-];
+  ];
+  
