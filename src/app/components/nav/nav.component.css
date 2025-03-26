@@ -1,0 +1,28 @@
+.bg-hero {
+    background-image: url('../../../assets/fondo_nav.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.nav-logo {
+    padding-top: 24%;
+    width: 40%;
+}
+
+.botones-nav {
+    padding-top: 25%;
+}
+
+.btn-nav {
+    background-color: #28a745;
+    /* tu color personalizado */
+    color: white;
+    border: none;
+}
+
+.btn-nav:hover {
+    background-color: #218838;
+    /* un tono más oscuro al pasar el ratón */
+}

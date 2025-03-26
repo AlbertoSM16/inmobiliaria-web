@@ -1,0 +1,9 @@
+
+/* src/styles.css */
+body {
+    font-family: 'Noto Sans', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }

@@ -1,1 +1,25 @@
-<p>nav works!</p>
+<div class="bg-hero py-4">
+    <div class="container">
+      <div class="row align-items-center">
+        
+        <div class="col-12 col-md-6 text-start mb-3 mb-md-0 nav-logo">
+          <img src="../../../assets/logo.jpg" alt="Logo" class="img-fluid"  />
+        </div>
+  
+        <div class="botones-nav col-12 col-md-6 d-flex flex-column align-items-center text-center gap-5">
+          <a class="nav-link active "  aria-current="page" [routerLink]="['/quienes-somos']">
+            <button type="button" class=" fs-3 btn btn-lg btn-nav">¿Quienes somos?</button>
+          </a>
+          
+          <a class="nav-link active" aria-current="page" [routerLink]="['/houses-list']">
+            <button type="button" class=" fs-3 btn btn-lg btn-nav">Inmuebles</button>
+          </a>
+          <a class="nav-link active "aria-current="page" [routerLink]="['/login']">
+            <button type="button"  class=" fs-3 btn btn-lg btn-nav">Contáctanos</button>
+          </a>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  

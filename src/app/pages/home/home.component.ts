@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 
+import { NavComponent } from '../../components/nav/nav.component';
+import { LandingPageComponent } from '../landing-page/landing-page.component';
+
 @Component({
   selector: 'home',
-  imports: [],
+  imports: [NavComponent,LandingPageComponent],
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
