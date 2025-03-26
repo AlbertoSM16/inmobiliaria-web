@@ -1,14 +1,10 @@
-
-/* src/styles.css */
 body {
-    font-family: 'Noto Sans', sans-serif;
-  }
+  font-family: 'Noto Sans', sans-serif;
+}
 
-  html {
-    scroll-behavior: smooth;
-  }
 
-  main {
-    position: relative;
-    overflow: hidden;
-  }
+
+main {
+  position: relative;
+  overflow: hidden;
+}

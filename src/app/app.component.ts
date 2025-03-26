@@ -1,10 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavComponent } from './components/nav/nav.component';
-import { HomeComponent } from './pages/home/home.component';
-import { LandingPageComponent } from './pages/landing-page/landing-page.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { trigger, transition, style, animate } from '@angular/animations';
 import { routeAnimations } from './route-animations';
 @Component({
   selector: 'app-root',
@@ -24,4 +19,6 @@ export class AppComponent implements AfterViewInit {
   prepareRoute(outlet: any) {
     return outlet?.activatedRouteData?.['animation'] || 'default';
   }
+
+  
 }

@@ -1,18 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule,RouterOutlet } from '@angular/router';
-import { PersonalInfoComponent } from '../../pages/personal-info/personal-info.component';
-
+import AOS from 'aos';
 @Component({
-  selector: 'nav',
+  selector: 'app-nav',
   imports: [RouterModule,RouterOutlet],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })
-export class NavComponent {
+export class NavComponent implements OnInit {
 
   constructor(private router: Router) {}
-
-  goToContact(){
-    this.router.navigate(['/contact']);
+  
+  ngOnInit(): void {
+    AOS.init({
+      duration: 1200
+    }); 
   }
+  
 }

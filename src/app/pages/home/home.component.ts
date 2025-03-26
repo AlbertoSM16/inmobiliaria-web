@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet,RouterModule } from '@angular/router';
 import { NavComponent } from '../../components/nav/nav.component';
 import { LandingPageComponent } from '../landing-page/landing-page.component';
+import AOS from 'aos';
 
 @Component({
   selector: 'home',
@@ -9,6 +10,10 @@ import { LandingPageComponent } from '../landing-page/landing-page.component';
   imports: [NavComponent,LandingPageComponent],
   templateUrl: './home.component.html',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   
+  ngOnInit(){
+    AOS.init();
+    window.addEventListener('load', AOS.refresh);
+  }
 } 
