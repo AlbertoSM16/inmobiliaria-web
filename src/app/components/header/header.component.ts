@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-
+import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'component-header',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

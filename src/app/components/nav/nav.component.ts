@@ -3,7 +3,7 @@ import { Router, RouterModule,RouterOutlet } from '@angular/router';
 import AOS from 'aos';
 @Component({
   selector: 'app-nav',
-  imports: [RouterModule,RouterOutlet],
+  imports: [RouterModule],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })

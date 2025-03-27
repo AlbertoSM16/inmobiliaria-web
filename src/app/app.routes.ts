@@ -13,11 +13,6 @@ export const routes: Routes = [
       data: { animation: 'HomePage' } 
     },
     {
-      path: 'home',
-      component: HomeComponent,
-      data: { animation: 'ContactPage' }
-    },
-    {
       path: 'contact',
       component: ContactComponent,
       data: { animation: 'ContactPage' }
