@@ -14,7 +14,7 @@ import jakarta.persistence.UniqueConstraint;
 @Table (name = "contrato_inmueble",
 uniqueConstraints = @UniqueConstraint(columnNames = "id_inmueble"))
 
-public class contratoInmueble {
+public class ContratoInmueble {
 
  @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +23,10 @@ public class contratoInmueble {
     // FK a inmueble (único)
     @OneToOne
     @JoinColumn(name = "id_inmueble", nullable = false, unique = true)
-    private inmuebles inmueble;
+    private Inmueble inmueble;
 
     // FK a contrato
     @ManyToOne
     @JoinColumn(name = "id_contrato", nullable = false)
-    private contrato contrato;
+    private Contrato contrato;
 }

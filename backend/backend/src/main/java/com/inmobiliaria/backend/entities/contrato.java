@@ -15,9 +15,9 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name ="tipo_contrato")
+@Table(name ="contrato")
 
-public class contrato {
+public class Contrato {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class contrato {
 
 
     @OneToMany(mappedBy = "contrato")
-    private List<contratoInmueble> contrato_inmuebles;
+    private List<ContratoInmueble> contrato_inmuebles;
     
     public Integer getId() {
         return id;

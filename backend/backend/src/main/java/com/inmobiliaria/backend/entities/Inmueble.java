@@ -1,18 +1,21 @@
 package com.inmobiliaria.backend.entities;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "inmuebles")
 
-public class inmuebles {
+public class Inmueble {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,10 +46,14 @@ public class inmuebles {
     @Column(length = 100)
     private String subtitulo;
 
-    @OneToOne(mappedBy = "inmueble")
-    private inmuebles contratoInmueble;
+    //i add this to not loop the json
+    @OneToMany(mappedBy = "inmueble")
+    @JsonManagedReference
 
-    public int getId() {
+    private List<InmuebleTipo> tiposInmueble;
+
+    
+    public Integer getId() {
         return id;
     }
 
@@ -102,7 +109,7 @@ public class inmuebles {
         this.fotoPrincipal = foto_principal;
     }
 
-    public int getBanios() {
+    public Integer getBanios() {
         return banios;
     }
 
@@ -110,7 +117,7 @@ public class inmuebles {
         this.banios = banios;
     }
 
-    public int getDormitorios() {
+    public Integer getDormitorios() {
         return dormitorios;
     }
 
@@ -125,6 +132,13 @@ public class inmuebles {
     public void setSubtitulo(String subtitulo) {
         this.subtitulo = subtitulo;
     }
-    
 
-}   
+    public List<InmuebleTipo> getTiposInmueble() {
+        return tiposInmueble;
+    }
+
+    public void setTiposInmueble(List<InmuebleTipo> tiposInmueble) {
+        this.tiposInmueble = tiposInmueble;
+    }
+    
+}
