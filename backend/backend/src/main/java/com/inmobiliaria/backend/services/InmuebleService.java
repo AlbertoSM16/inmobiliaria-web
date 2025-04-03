@@ -3,6 +3,7 @@ package com.inmobiliaria.backend.services;
 import java.util.List;
 import java.util.Optional;
 
+
 // import org.springframework.data.domain.Page;
 // import org.springframework.data.domain.Pageable;
 
@@ -16,9 +17,12 @@ public interface InmuebleService {
 
     Optional<Inmueble>findById(@NonNull Integer id);
 
-    List<Inmueble> findByLocalidadAndContratoTipo(String localidad, Integer tipoId);
+    List<Inmueble> findByLocationContract(String localidad, Integer tipoId);
     
-    List<Inmueble> findByTipoInmueble(Integer tipoId);
+    List<Inmueble> findByLocationContractType(String localidad,Integer contratoId,Integer tipoId);
+    
+    List<Inmueble> findByTypeContract(Integer tipoId, Integer contratoId);
+
     // Inmueble save(Inmueble inmueble);
 
     // void deleteById(Integer id);

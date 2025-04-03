@@ -20,40 +20,11 @@ public class InmuebleController {
     @Autowired
     private InmuebleService service;
 
-    // 🔹 Obtener todos los inmuebles
     @GetMapping
     public ResponseEntity<List<Inmueble>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 
-    // 🔹 Buscar inmuebles por localidad y tipo de contrato (ej. /api/inmuebles/buscar?localidad=Madrid&tipoId=1)
-    @GetMapping("/buscar")
-    public ResponseEntity<?> buscar(
-            @RequestParam String localidad,
-            @RequestParam Integer tipoId) {
-
-        List<Inmueble> resultados = service.findByLocalidadAndContratoTipo(localidad, tipoId);
-        if (!resultados.isEmpty()) {
-            return ResponseEntity.ok(resultados);
-        }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap("Error", "No se han encontrado resultados"));
-    }
-
-    // 🔹 Buscar por tipo de inmueble (ej. /api/inmuebles/tipo?tipoId=2)
-    @GetMapping("/tipo")
-    public ResponseEntity<?> buscarPorTipo(@RequestParam Integer tipoId) {
-        List<Inmueble> inmueblesOptional = service.findByTipoInmueble(tipoId);
-        if (!inmueblesOptional.isEmpty()) {
-            return ResponseEntity.ok(inmueblesOptional);
-        }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap("Error", "No se han encontrado resultados"));
-    }
-
-    // 🔹 Obtener un inmueble por su ID (ej. /api/inmuebles/5)
     @GetMapping("/{id}")
     public ResponseEntity<?> show(@PathVariable Integer id) {
         Optional<Inmueble> inmuebleOptional = service.findById(id);
@@ -64,4 +35,45 @@ public class InmuebleController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap("Error", "No se encontró el inmueble con ID: " + id));
     }
+    //searching by location and contract
+    @GetMapping("/search")
+    public ResponseEntity<?> searchByLocationContract(
+            @RequestParam String localidad,
+            @RequestParam Integer tipoId) {
+
+        List<Inmueble> resultados = service.findByLocationContract(localidad, tipoId);
+        if (!resultados.isEmpty()) {
+            return ResponseEntity.ok(resultados);
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap("Error", "No se han encontrado resultados"));
+    }
+    
+    // search by contract and location and type
+    @GetMapping("/all")
+    public ResponseEntity<?> searchByLocationTypeContract(@RequestParam String localidad, @RequestParam Integer tipoId,  @RequestParam Integer contratoId) {
+        List<Inmueble> inmueblesOptional = service.findByLocationContractType(localidad, contratoId, tipoId);
+        if (!inmueblesOptional.isEmpty()) {
+            return ResponseEntity.ok(inmueblesOptional);
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap("Error", "No se han encontrado resultados"));
+    }
+    // searching by contract and type
+    @GetMapping("/type")
+    public ResponseEntity<?> searchByTypeContract(@RequestParam Integer tipoId, @RequestParam Integer contratoId){
+        List<Inmueble> inmueblesOptional = service.findByTypeContract(tipoId,contratoId);
+        if (!inmueblesOptional.isEmpty()) {
+            return ResponseEntity.ok(inmueblesOptional);
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap("Error", "No se han encontrado resultados"));
+    }
+
+
+
+    
 }

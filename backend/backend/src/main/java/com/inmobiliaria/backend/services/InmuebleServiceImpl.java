@@ -35,13 +35,20 @@ public class InmuebleServiceImpl implements InmuebleService {
     
     @Override
     @Transactional(readOnly = true)
-    public List<Inmueble> findByLocalidadAndContratoTipo(String localidad, Integer tipoId) {
-        return repository.findByLocalidadAndContratoTipo(localidad, tipoId);
+    public List<Inmueble> findByLocationContract(String localidad, Integer tipoId) {
+        return repository.findByLocationContract(localidad, tipoId);
     }
     @Override
     @Transactional(readOnly = true)
-    public List<Inmueble> findByTipoInmueble(Integer tipoId){
-        return repository.findByTipoInmueble(tipoId);
+    public List<Inmueble> findByLocationContractType(String localidad, Integer contratoId, Integer tipoId) {
+        return repository.findByLocationContractType(localidad, contratoId, tipoId);
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Inmueble> findByTypeContract(Integer tipoId, Integer contratoId){
+        return repository.findByTypeContract(tipoId, contratoId);
     }
 }
 

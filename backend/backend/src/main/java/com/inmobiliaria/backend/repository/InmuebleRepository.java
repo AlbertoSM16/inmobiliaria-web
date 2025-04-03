@@ -21,7 +21,7 @@ public interface InmuebleRepository extends CrudRepository<Inmueble, Integer> {
                         "JOIN ContratoInmueble ci ON i.id = ci.inmueble.id " +
                         "JOIN Contrato c ON c.id = ci.contrato.id " +
                         "WHERE i.localidad LIKE CONCAT('%',:localidad,'%')  AND c.id = :tipoId")
-        List<Inmueble> findByLocalidadAndContratoTipo(@Param("localidad") String localidad,
+        List<Inmueble> findByLocationContract(@Param("localidad") String localidad,
                         @Param("tipoId") Integer tipoId);
 
         // search by contract location and type of building
@@ -32,14 +32,18 @@ public interface InmuebleRepository extends CrudRepository<Inmueble, Integer> {
                         "WHERE i.localidad LIKE CONCAT('%', :localidad, '%') " +
                         "AND c.id = :contratoId " +
                         "AND it.tipoId = :tipoId")
-        List<Inmueble> findByLocalidadAndContratoAndTipo(
+        List<Inmueble> findByLocationContractType(
                         @Param("localidad") String localidad,
                         @Param("contratoId") Integer contratoId,
                         @Param("tipoId") Integer tipoId);
 
+        //search by type of building and contract
         @Query("SELECT i FROM Inmueble i " +
-                        "JOIN i.tiposInmueble it " +
-                        "WHERE it.tipoId = :tipoId")
-        List<Inmueble> findByTipoInmueble(@Param("tipoId") Integer tipoId);
+                        "JOIN ContratoInmueble ci ON i.id = ci.inmueble.id " +
+                        "JOIN Contrato c ON ci.contrato.id = c.id " +
+                        "JOIN InmuebleTipo it ON i.id = it.inmueble.id " +
+                        "WHERE it.tipoId = :tipoId" + 
+                        "AND it.tipoId = :tipoId " )
+        List<Inmueble> findByTypeContract(@Param("tipoId") Integer tipoId, @Param("contratoId") Integer contratoId);
 
 }
