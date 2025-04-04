@@ -42,8 +42,8 @@ public interface InmuebleRepository extends CrudRepository<Inmueble, Integer> {
                         "JOIN ContratoInmueble ci ON i.id = ci.inmueble.id " +
                         "JOIN Contrato c ON ci.contrato.id = c.id " +
                         "JOIN InmuebleTipo it ON i.id = it.inmueble.id " +
-                        "WHERE it.tipoId = :tipoId" + 
-                        "AND it.tipoId = :tipoId " )
+                        "WHERE c.id = :contratoId " +
+                        "AND it.tipoId = :tipoId" )
         List<Inmueble> findByTypeContract(@Param("tipoId") Integer tipoId, @Param("contratoId") Integer contratoId);
 
 }

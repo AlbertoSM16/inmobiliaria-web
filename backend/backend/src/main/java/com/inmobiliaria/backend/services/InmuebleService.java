@@ -3,6 +3,7 @@ package com.inmobiliaria.backend.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.inmobiliaria.backend.dto.InmuebleRequestDTO;
 
 // import org.springframework.data.domain.Page;
 // import org.springframework.data.domain.Pageable;
@@ -23,9 +24,13 @@ public interface InmuebleService {
     
     List<Inmueble> findByTypeContract(Integer tipoId, Integer contratoId);
 
-    // Inmueble save(Inmueble inmueble);
+    Inmueble save(Inmueble inmueble);
 
-    // void deleteById(Integer id);
+    Inmueble saveFromDTO(InmuebleRequestDTO dto);
+    
+    Inmueble updateFromDTO(Integer id, InmuebleRequestDTO dto);
+    
+    void deleteById(Integer id);
 
     // Page<Inmueble> findAll(Pageable pageable);
     
