@@ -1,19 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterOutlet,RouterModule } from '@angular/router';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { NavComponent } from '../../components/nav/nav.component';
 import { LandingPageComponent } from '../landing-page/landing-page.component';
-import AOS from 'aos';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'home',
-  standalone:true,
-  imports: [NavComponent,LandingPageComponent],
+  standalone: true,
+  imports: [NavComponent, LandingPageComponent],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  
-  ngOnInit(){
-    AOS.init();
-    window.addEventListener('load', AOS.refresh);
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+
+  async ngOnInit(): Promise<void> {
+    if (isPlatformBrowser(this.platformId)) {
+      const AOS = await import('aos');
+      AOS.init();
+    }
   }
-} 
+  // AOS.init();
+  // window.addEventListener('load', AOS.refresh);
+}

@@ -1,26 +1,26 @@
 <div class="container d-flex justify-content-center">
     <div class="btn-group toggle-group" role="group">
-      <input type="radio" class="btn-check" name="tipoContrato" id="comprar" value="comprar" autocomplete="off" [(ngModel)]="tipoContrato">
+      <input type="radio" class="btn-check" name="tipoContrato" id="comprar" value="2" autocomplete="off" [(ngModel)]="tipoContrato">
       <label class="btn btn-toggle" for="comprar">Comprar</label>
   
-      <input type="radio" class="btn-check" name="tipoContrato" id="alquilar" value="alquilar" autocomplete="off" [(ngModel)]="tipoContrato">
+      <input type="radio" class="btn-check" name="tipoContrato" id="alquilar" value="1" autocomplete="off" [(ngModel)]="tipoContrato">
       <label class="btn btn-toggle" for="alquilar">Alquilar</label>
     </div>
   
     <div class="col-2 ms-2">
-      <select class="form-select form-select-md"   aria-label="Tipo de inmueble" [(ngModel)]="tipoInmueble" name="tipoInmueble">
-        <option value="casa">Casa</option>
-        <option value="piso">Piso</option>
-        <option value="chalet">Chalet</option>
-        <option value="casa_rural">Casa Rural</option>
-        <option value="finca">Finca</option>
-        <option value="cochera">Cochera</option>
+      <select class="form-select form-select-md" aria-label="Tipo de inmueble" [(ngModel)]="tipoInmueble" name="tipoInmueble">
+        <option value="1">Casa</option>
+        <option value="2">Piso</option>
+        <option value="3">Chalet</option>
+        <option value="4">Casa Rural</option>
+        <option value="5">Finca</option>
+        <option value="6">Cochera</option>
       </select>
     </div>
   
     <div class="d-flex">
       <input type="text" class="form-control ms-2 me-4 col-5" id="buscador-localidad-text" name="localidad" placeholder="Localidad" [(ngModel)]="localidad">
-      <button type="button" class="btn btn-primary">Buscar</button>
+      <button type="button" class="btn btn-primary" (click)="search()">Buscar</button>
     </div>
   </div>
   

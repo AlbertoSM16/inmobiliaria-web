@@ -1,6 +1,10 @@
-<div class=" container bg-light card col text-center ">
+<div class="container bg-light card col text-center">
   <img [src]="inmueble.foto_principal" class="w-50 d-block mx-auto pt-4">
-    <h2 class="text-lg font-bold">{{ inmueble.titulo }}</h2>
-    <p>{{ inmueble.descripcion }}</p>
-    <p class="text-green-600 font-semibold">{{ inmueble.precio }}</p>
-  </div>
+  <h2 class="text-lg font-bold">{{ inmueble.titulo }}</h2>
+  <p>{{ inmueble.descripcion }}</p>
+  <p class="text-lg font-semibold">{{ inmueble.precio }} €</p>
+
+  <button class="btn btn-primary mx-10 my-4 " (click)="goToDetail()">
+    Consultar más información
+  </button>
+</div>

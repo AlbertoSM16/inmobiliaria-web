@@ -9,22 +9,44 @@ import { CommonModule, NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-houses-list',
-  imports: [BuscadorComponent, HeaderComponent, HouseCardComponent,FormsModule,CommonModule,NgForOf],
+  imports: [BuscadorComponent, HeaderComponent, HouseCardComponent, FormsModule, CommonModule, NgForOf],
   standalone: true,
   templateUrl: './houses-list.component.html',
   styleUrl: './houses-list.component.css'
 })
 export class HousesListComponent {
-  inmuebles : Inmueble[] = [];
+  inmuebles: Inmueble[] = [];
+  searchDone: boolean = false;
+  noResults:boolean = false;
 
-  constructor(private inmuebleService : InmuebleService) {}
+  constructor(private inmuebleService: InmuebleService) { }
 
-  ngOnInit():void{
+  ngOnInit(): void {
     this.inmuebleService.getAll().subscribe({
-      next : data => this.inmuebles = data,
+      next: data => this.inmuebles = data,
       error: err => console.error('Error al obtener inmuebles', err)
 
     })
+  }
+
+  searchByFilter(filters: any) {
+    //i put this because i want to  control error messages
+    this.searchDone = true;
+    this.noResults = false;
+
+    this.inmuebleService.getByFilters(
+      filters.localidad,
+      filters.tipoId,
+      filters.contratoId
+    ).subscribe({
+      next: (data) => {
+        this.inmuebles = data;
+      },
+      error: (error) => {
+        this.inmuebles = [];
+        this.noResults = true; 
+      }
+    });
   }
 
 }

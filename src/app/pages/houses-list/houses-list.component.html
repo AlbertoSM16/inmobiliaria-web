@@ -3,10 +3,13 @@
     <component-header></component-header>
   </div>
   <div class="mt-5 mb-5">
-    <buscador></buscador>
+  <buscador (onSearch)="searchByFilter($event)"></buscador>
   </div>
 
-  <div>
+  <div *ngIf="noResults" class="alert alert-warning text-center mt-4">
+    <h2>No existen inmuebles con estas condiciones.</h2>
+  </div>
+  <div *ngIf="inmuebles.length > 0">
     <house-card *ngFor="let inmueble of inmuebles" [inmueble]="inmueble">
     </house-card>
   </div>
