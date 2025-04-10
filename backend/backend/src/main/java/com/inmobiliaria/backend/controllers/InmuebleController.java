@@ -81,7 +81,7 @@ public class InmuebleController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap("Error", "No se han encontrado resultados"));
     }
-
+    //create inmueble with the differents foreign keys
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody InmuebleRequestDTO dto, BindingResult result) {
         if (result.hasErrors()) {
@@ -92,7 +92,7 @@ public class InmuebleController {
         Inmueble nuevo = service.saveFromDTO(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
     }
-
+    //edit building and fk
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Integer id, @Valid @RequestBody InmuebleRequestDTO dto,
             BindingResult result) {
@@ -105,7 +105,7 @@ public class InmuebleController {
         Inmueble updated = service.updateFromDTO(id, dto);
         return ResponseEntity.ok(updated);
     }
-
+    //delete building and fk
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         try {

@@ -32,6 +32,7 @@ public interface InmuebleService {
     
     void deleteById(Integer id);
 
+
     // Page<Inmueble> findAll(Pageable pageable);
     
 }

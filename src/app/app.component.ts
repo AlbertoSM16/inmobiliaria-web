@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { routeAnimations } from './route-animations';
+
 @Component({
   selector: 'app-root',
   standalone: true,
