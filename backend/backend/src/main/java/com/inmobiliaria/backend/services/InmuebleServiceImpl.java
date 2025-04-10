@@ -45,11 +45,11 @@ public class InmuebleServiceImpl implements InmuebleService {
         return repository.findById(id);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Inmueble> findByLocationContract(String localidad, Integer tipoId) {
-        return repository.findByLocationContract(localidad, tipoId);
-    }
+    // @Override
+    // @Transactional(readOnly = true)
+    // public List<Inmueble> findByLocationContract(String localidad, Integer tipoId) {
+    //     return repository.findByLocationContract(localidad, tipoId);
+    // }
 
     @Override
     @Transactional(readOnly = true)
@@ -57,11 +57,11 @@ public class InmuebleServiceImpl implements InmuebleService {
         return repository.findByLocationContractType(localidad, contratoId, tipoId);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Inmueble> findByTypeContract(Integer tipoId, Integer contratoId) {
-        return repository.findByTypeContract(tipoId, contratoId);
-    }
+    // @Override
+    // @Transactional(readOnly = true)
+    // public List<Inmueble> findByTypeContract(Integer tipoId, Integer contratoId) {
+    //     return repository.findByTypeContract(tipoId, contratoId);
+    // }
 
     @Autowired
     private ContratoRepository contratoRepo;

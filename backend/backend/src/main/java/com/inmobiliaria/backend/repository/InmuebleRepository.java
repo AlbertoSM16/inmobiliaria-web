@@ -17,14 +17,14 @@ public interface InmuebleRepository extends CrudRepository<Inmueble, Integer> {
         Optional<Inmueble> findById(Integer id);
 
         // search by contract and location
-        @Query("SELECT i FROM Inmueble i " +
-                        "JOIN ContratoInmueble ci ON i.id = ci.inmueble.id " +
-                        "JOIN Contrato c ON c.id = ci.contrato.id " +
-                        "WHERE i.localidad LIKE CONCAT('%',:localidad,'%')  AND c.id = :tipoId")
-        List<Inmueble> findByLocationContract(@Param("localidad") String localidad,
-                        @Param("tipoId") Integer tipoId);
+        // @Query("SELECT i FROM Inmueble i " +
+        //                 "JOIN ContratoInmueble ci ON i.id = ci.inmueble.id " +
+        //                 "JOIN Contrato c ON c.id = ci.contrato.id " +
+        //                 "WHERE i.localidad LIKE CONCAT('%',:localidad,'%')  AND c.id = :tipoId")
+        // List<Inmueble> findByLocationContract(@Param("localidad") String localidad,
+        //                 @Param("tipoId") Integer tipoId);
 
-        // search by contract location and type of building
+        //search by contract location and type of building
         @Query("SELECT i FROM Inmueble i " +
                         "JOIN ContratoInmueble ci ON i.id = ci.inmueble.id " +
                         "JOIN Contrato c ON ci.contrato.id = c.id " +
@@ -38,12 +38,12 @@ public interface InmuebleRepository extends CrudRepository<Inmueble, Integer> {
                         @Param("tipoId") Integer tipoId);
 
         //search by type of building and contract
-        @Query("SELECT i FROM Inmueble i " +
-                        "JOIN ContratoInmueble ci ON i.id = ci.inmueble.id " +
-                        "JOIN Contrato c ON ci.contrato.id = c.id " +
-                        "JOIN InmuebleTipo it ON i.id = it.inmueble.id " +
-                        "WHERE c.id = :contratoId " +
-                        "AND it.tipoId = :tipoId" )
-        List<Inmueble> findByTypeContract(@Param("tipoId") Integer tipoId, @Param("contratoId") Integer contratoId);
+//         @Query("SELECT i FROM Inmueble i " +
+//                         "JOIN ContratoInmueble ci ON i.id = ci.inmueble.id " +
+//                         "JOIN Contrato c ON ci.contrato.id = c.id " +
+//                         "JOIN InmuebleTipo it ON i.id = it.inmueble.id " +
+//                         "WHERE c.id = :contratoId " +
+//                         "AND it.tipoId = :tipoId" )
+//         List<Inmueble> findByTypeContract(@Param("tipoId") Integer tipoId, @Param("contratoId") Integer contratoId);
 
 }

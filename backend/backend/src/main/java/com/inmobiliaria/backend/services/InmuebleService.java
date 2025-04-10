@@ -18,11 +18,11 @@ public interface InmuebleService {
 
     Optional<Inmueble>findById(@NonNull Integer id);
 
-    List<Inmueble> findByLocationContract(String localidad, Integer tipoId);
+    //List<Inmueble> findByLocationContract(String localidad, Integer tipoId);
     
     List<Inmueble> findByLocationContractType(String localidad,Integer contratoId,Integer tipoId);
     
-    List<Inmueble> findByTypeContract(Integer tipoId, Integer contratoId);
+    //List<Inmueble> findByTypeContract(Integer tipoId, Integer contratoId);
 
     Inmueble save(Inmueble inmueble);
 

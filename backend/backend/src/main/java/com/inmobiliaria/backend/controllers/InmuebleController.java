@@ -43,20 +43,20 @@ public class InmuebleController {
                 .body(Collections.singletonMap("Error", "No se encontró el inmueble con ID: " + id));
     }
 
-    // searching by location and contract
-    @GetMapping("/search")
-    public ResponseEntity<?> searchByLocationContract(
-            @RequestParam String localidad,
-            @RequestParam Integer tipoId) {
+     // searching by location and contract
+    // @GetMapping("/search")
+    // public ResponseEntity<?> searchByLocationContract(
+    //         @RequestParam String localidad,
+    //         @RequestParam Integer tipoId) {
 
-        List<Inmueble> resultados = service.findByLocationContract(localidad, tipoId);
-        if (!resultados.isEmpty()) {
-            return ResponseEntity.ok(resultados);
-        }
+    //     List<Inmueble> resultados = service.findByLocationContract(localidad, tipoId);
+    //     if (!resultados.isEmpty()) {
+    //         return ResponseEntity.ok(resultados);
+    //     }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap("Error", "No se han encontrado resultados"));
-    }
+    //     return ResponseEntity.status(HttpStatus.NOT_FOUND)
+    //             .body(Collections.singletonMap("Error", "No se han encontrado resultados"));
+    // }
 
     // search by contract and location and type
     @GetMapping("/all")
@@ -72,15 +72,15 @@ public class InmuebleController {
     }
 
     // searching by contract and type
-    @GetMapping("/type")
-    public ResponseEntity<?> searchByTypeContract(@RequestParam Integer tipoId, @RequestParam Integer contratoId) {
-        List<Inmueble> inmueblesOptional = service.findByTypeContract(tipoId, contratoId);
-        if (!inmueblesOptional.isEmpty()) {
-            return ResponseEntity.ok(inmueblesOptional);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap("Error", "No se han encontrado resultados"));
-    }
+    // @GetMapping("/type")
+    // public ResponseEntity<?> searchByTypeContract(@RequestParam Integer tipoId, @RequestParam Integer contratoId) {
+    //     List<Inmueble> inmueblesOptional = service.findByTypeContract(tipoId, contratoId);
+    //     if (!inmueblesOptional.isEmpty()) {
+    //         return ResponseEntity.ok(inmueblesOptional);
+    //     }
+    //     return ResponseEntity.status(HttpStatus.NOT_FOUND)
+    //             .body(Collections.singletonMap("Error", "No se han encontrado resultados"));
+    // }
     //create inmueble with the differents foreign keys
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody InmuebleRequestDTO dto, BindingResult result) {
