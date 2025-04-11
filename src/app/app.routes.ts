@@ -5,6 +5,7 @@ import { HousesListComponent } from './pages/houses-list/houses-list.component';
 import { PersonalInfoComponent } from './pages/personal-info/personal-info.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { HouseInfoComponent } from './pages/house-info/house-info.component';
+import { CreateHouseComponent } from './pages/create-house/create-house.component';
 
 export const routes: Routes = [
     {
@@ -32,6 +33,11 @@ export const routes: Routes = [
       component: HouseInfoComponent,
       data: { animation: 'houseInfoAnimation'}
 
+    },
+    {
+      path:'inmueble/edit/:id',
+      component: CreateHouseComponent, 
+      data: { animation: 'createHouseAnimation'}
     }
   ];
   

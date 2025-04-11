@@ -17,5 +17,9 @@ export class HouseCardComponent {
   goToDetail(){
     this.router.navigate(['/inmueble/',this.inmueble.id]);
   }
+
+  goToEdit(){
+    this.router.navigate(['/inmueble/edit/',this.inmueble.id]);
+  }
   
 }

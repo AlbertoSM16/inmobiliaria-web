@@ -30,5 +30,20 @@ export class InmuebleService {
     return this.http.get<any[]>(`${this.apiUrl}/type?tipoId=${tipoId}&contratoId=${contratoId}`)
   }
 
+  //edit
+  update(inmueble: Inmueble): Observable<Inmueble>{
+    return this.http.put<Inmueble>(this.apiUrl, inmueble);
+  }
+
+  //create
+  create(inmueble: Inmueble): Observable<Inmueble>{
+    return this.http.post<Inmueble>(this.apiUrl, inmueble);
+  }
+
+  //delete
+  delete(id: number): Observable<any>{
+    return this.http.delete<any>(this.apiUrl + '/' + id);
+  }
+
 
 }

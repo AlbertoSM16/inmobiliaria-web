@@ -20,10 +20,6 @@ public class Tipo {
     @NotBlank
     private String nombre;
 
-    // @OneToMany(mappedBy = "tipo")
-    // private List<
-
-
     public int getId() {
         return id;
     }
