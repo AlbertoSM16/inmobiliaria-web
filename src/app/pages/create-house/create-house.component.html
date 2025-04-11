@@ -1,48 +1,49 @@
+<component-header></component-header>
+
 <div class="container mt-4">
     <h2 class="mb-4">Editar Inmueble</h2>
   
-    <form [formGroup]="inmuebleForm" (ngSubmit)="onSave()">
-  
+    <form *ngIf="inmuebleForm" [formGroup]="inmuebleForm">      
       <!-- title -->
       <div class="mb-3">
         <label for="titulo" class="form-label">Título</label>
         
-        <input type="text" id="titulo" class="form-control" value="{{inmueble.titulo}}" formControlName="titulo">
+        <input type="text" id="titulo" class="form-control"  formControlName="titulo">
       </div>
       <!-- subtitle -->
       <div class="mb-3">
-        <label for="subtitle" class="form-label">Descripción</label>
-        <textarea id="subtitle" rows="2" class="form-control" value="{{inmueble.subtitulo}}" formControlName="subtitle"></textarea>
+        <label for="subtitle" class="form-label">Subtitulo</label>
+        <textarea id="subtitle" rows="2" class="form-control"  formControlName="subtitle"></textarea>
       </div>
       <!-- description -->
       <div class="mb-3">
         <label for="descripcion" class="form-label">Descripción</label>
-        <textarea id="descripcion" rows="4" class="form-control" value="{{inmueble.descripcion}}" formControlName="descripcion"></textarea>
+        <textarea id="descripcion" rows="4" class="form-control"  formControlName="descripcion"></textarea>
       </div>
   
       <!-- price -->
       <div class="mb-3">
         <label for="precio" class="form-label">Precio (€)</label>
-        <input type="number" id="precio" class="form-control" value="{{inmueble.precio}}" formControlName="precio">
+        <input type="number" id="precio" class="form-control"  formControlName="precio">
       </div>
   
       <!-- location -->
       <div class="mb-3">
         <label for="localidad" class="form-label">Localidad</label>
-        <input type="text" id="localidad" class="form-control" value="{{inmueble.localidad}}" formControlName="localidad">
+        <input type="text" id="localidad" class="form-control"  formControlName="localidad">
       </div>
 
       <!-- bathrooms -->
       <div class="mb-3">
         <label for="localidad" class="form-label">Baños</label>
-        <input type="number" id="banios" class="form-control" value="{{inmueble.banios}}" formControlName="banios">
+        <input type="number" id="banios" class="form-control"  formControlName="banios">
       </div>
       
       <!-- type of building -->
       <div class="mb-3">
         <label for="tipoInmueble" class="form-label">Tipo de inmueble</label>
-        <select id="tipoInmueble" class="form-select" formControlName="tipoInmuebleId">
-          <option *ngFor="let tipo of tiposInmueble" [value]="tipo.id">{{ tipo.nombre }}</option>
+        <select id="tipoInmueble" class="form-select" formControlName="tipoInmueble">
+          <option *ngFor="let tipo of tiposInmuebles" [value]="tipo.id">{{ tipo.nombre }}</option>
         </select>
       </div>
   
@@ -50,7 +51,7 @@
       <div class="mb-3">
         <label for="tipoContrato" class="form-label">Tipo de contrato</label>
         <select id="tipoContrato" class="form-select" formControlName="tipoContratoId">
-          <option *ngFor="let contrato of tiposContrato" [value]="contrato.id">{{ contrato.nombre }}</option>
+          <option *ngFor="let contrato of tiposContratos" [value]="contrato.id">{{ contrato.nombre }}</option>
         </select>
       </div>
   
