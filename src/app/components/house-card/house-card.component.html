@@ -1,4 +1,4 @@
-<div class="container bg-light card col text-center">
+<div class="container bg-light card col text-center my-4">
   <img [src]="'../../assets/' + inmueble.foto_principal" class="w-50 d-block mx-auto pt-4">
   <h2 class="text-lg font-bold">{{ inmueble.titulo }}</h2>
   <p>{{ inmueble.descripcion }}</p>
@@ -10,6 +10,9 @@
     </button>
     <button class="btn btn-warning px-2 py-1 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;" (click)="goToEdit()">
       <i class="bi bi-pencil-square fs-5"></i>
+    </button>
+    <button class="btn btn-danger" (click)="deleteBuilding()">
+      <i class="bi bi-trash"></i>
     </button>
     
   </div>

@@ -5,7 +5,7 @@
   <div class="mt-5 mb-5">
     <buscador (onSearch)="searchByFilter($event)"></buscador>
   </div>
-  <div class ="mb-5 d-flex justify-content-center">
+  <div class="mb-5 d-flex justify-content-center">
     <button class="btn btn-info" (click)="goToCreate()">
       Crear inmueble
     </button>
@@ -14,7 +14,7 @@
     <h2>No existen inmuebles con estas condiciones.</h2>
   </div>
   <div *ngIf="inmuebles.length > 0">
-    <house-card *ngFor="let inmueble of inmuebles" [inmueble]="inmueble">
+    <house-card *ngFor="let inmueble of inmuebles" [inmueble]="inmueble" (deleted)="removeInmueble($event)">
     </house-card>
   </div>
 

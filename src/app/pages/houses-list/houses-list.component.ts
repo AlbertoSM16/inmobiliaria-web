@@ -55,4 +55,11 @@ export class HousesListComponent {
     });
   }
 
+  removeInmueble(id: number) {
+    this.inmuebles = this.inmuebles.filter(inmueble => inmueble.id !== id);
+    if (this.inmuebles.length === 0) {
+      this.noResults = true;
+    }
+  }
+
 }
