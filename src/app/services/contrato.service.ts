@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Contrato } from '../models/contracto';
+import { Contract } from '../models/contract';
 import { Observable } from 'rxjs';
 
 
@@ -12,9 +12,9 @@ export class ContratoService {
   private apiUrl = 'http://localhost:8080/api/contracts';
   constructor(private http: HttpClient) { }
 
-  getAll():Observable<Contrato[]>{
+  getAll():Observable<Contract[]>{
 
-    return this.http.get<Contrato[]>(this.apiUrl);
+    return this.http.get<Contract[]>(this.apiUrl);
   }
   
 }

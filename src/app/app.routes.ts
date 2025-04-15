@@ -6,6 +6,7 @@ import { PersonalInfoComponent } from './pages/personal-info/personal-info.compo
 import { ContactComponent } from './pages/contact/contact.component';
 import { HouseInfoComponent } from './pages/house-info/house-info.component';
 import { CreateHouseComponent } from './pages/create-house/create-house.component';
+import { EditHouseComponent } from './pages/edit-house/edit-house.component';
 
 export const routes: Routes = [
     {
@@ -36,7 +37,12 @@ export const routes: Routes = [
     },
     {
       path:'inmueble/edit/:id',
-      component: CreateHouseComponent, 
+      component: EditHouseComponent, 
+      data: { animation: 'editHouseAnimation'}
+    },
+    {
+      path:'create',
+      component: CreateHouseComponent,
       data: { animation: 'createHouseAnimation'}
     }
   ];

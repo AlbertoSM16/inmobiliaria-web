@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Inmueble } from '../models/inmueble';
+import { InmuebleRequestDTO } from '../models/InmuebleRequestDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,10 @@ export class InmuebleService {
   getById(id: number): Observable<Inmueble>{
     return this.http.get<Inmueble>(this.apiUrl + '/' + id)
   }
-
+  //create
+  createInmueble(dto: InmuebleRequestDTO): Observable<any> {
+    return this.http.post(this.apiUrl, dto);
+  }
   // searches
 
   getByFilters(localidad: string, tipoId: number, contratoId: number) {

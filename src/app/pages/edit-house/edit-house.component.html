@@ -1,21 +1,20 @@
 <component-header></component-header>
 
 <div class="container mt-4">
-  <h2 class="mb-4">Crear Inmueble</h2>
+  <h2 class="mb-4">Editar Inmueble</h2>
 
-  <form [formGroup]="inmuebleForm" (ngSubmit)="guardarInmueble()">
+  <form *ngIf="inmuebleForm" [formGroup]="inmuebleForm" (ngSubmit)="guardarCambios()">
     <!-- title -->
     <div class="mb-3">
       <label for="titulo" class="form-label">Título</label>
+
       <input type="text" id="titulo" class="form-control" formControlName="titulo">
     </div>
-
     <!-- subtitle -->
     <div class="mb-3">
-      <label for="subtitle" class="form-label">Subtítulo</label>
+      <label for="subtitle" class="form-label">Subtitulo</label>
       <textarea id="subtitle" rows="2" class="form-control" formControlName="subtitle"></textarea>
     </div>
-
     <!-- description -->
     <div class="mb-3">
       <label for="descripcion" class="form-label">Descripción</label>
@@ -27,16 +26,16 @@
       <label for="precio" class="form-label">Precio (€)</label>
       <input type="number" id="precio" class="form-control" formControlName="precio">
     </div>
-
-    <!-- image upload -->
+    <!-- Subida de nuevas fotos -->
     <label for="fotos">Añadir fotos:</label>
     <input type="file" (change)="onFileSelected($event)" multiple />
 
-    <!-- preview of new images -->
-    <div *ngIf="previewImages.length > 0">
-      <h4>Vista previa:</h4>
-      <div *ngFor="let img of previewImages">
-        <img [src]="img" width="100" class="me-2 mb-2" />
+    <!-- Mostrar fotos actuales (si ya existen) -->
+    <div *ngIf="galeriaAux.length > 0">
+      <h4>Fotos actuales:</h4>
+      <div *ngFor="let foto of galeriaAux; let i = index">
+        <img [src]="foto.url" width="100" alt="Foto {{ i + 1 }}" />
+        <button type="button" (click)="eliminarFoto(foto.nombre)">Eliminar</button>
       </div>
     </div>
     <!-- location -->
@@ -47,15 +46,10 @@
 
     <!-- bathrooms -->
     <div class="mb-3">
-      <label for="banios" class="form-label">Baños</label>
+      <label for="localidad" class="form-label">Baños</label>
       <input type="number" id="banios" class="form-control" formControlName="banios">
     </div>
 
-    <!-- bedrooms -->
-    <div class="mb-3">
-      <label for="dormitorios" class="form-label">Dormitorios</label>
-      <input type="number" id="dormitorios" class="form-control" formControlName="dormitorios">
-    </div>
     <!-- type of building -->
     <div class="mb-3">
       <label for="tipoInmueble" class="form-label">Tipo de inmueble</label>
@@ -71,6 +65,8 @@
         <option *ngFor="let contrato of tiposContratos" [value]="contrato.id">{{ contrato.nombre }}</option>
       </select>
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="inmuebleForm.invalid">Crear inmueble</button>
+
+
+    <button type="submit" class="btn btn-success" [disabled]="inmuebleForm.invalid">Guardar cambios</button>
   </form>
 </div>

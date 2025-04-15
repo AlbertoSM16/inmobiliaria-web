@@ -1,4 +1,4 @@
-export interface Contrato{
+export interface Contract{
     id:number;
     nombre:string;
 }

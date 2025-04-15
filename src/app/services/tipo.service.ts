@@ -14,5 +14,5 @@ export class TipoService {
   getAll():Observable<Tipo[]>{
     return this.http.get<Tipo[]>(this.apiUrl);
   }
-
+  
 }

@@ -5,6 +5,8 @@ import { HouseCardComponent } from '../../components/house-card/house-card.compo
 import { Inmueble } from '../../models/inmueble';
 import { InmuebleService } from '../../services/inmueble.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { CommonModule, NgForOf } from '@angular/common';
 
 @Component({
@@ -19,7 +21,7 @@ export class HousesListComponent {
   searchDone: boolean = false;
   noResults:boolean = false;
 
-  constructor(private inmuebleService: InmuebleService) { }
+  constructor(private inmuebleService: InmuebleService,private router:Router) { }
 
   ngOnInit(): void {
     this.inmuebleService.getAll().subscribe({
@@ -29,6 +31,10 @@ export class HousesListComponent {
     })
   }
 
+  goToCreate(){
+    this.router.navigate(['create']);
+
+  }
   searchByFilter(filters: any) {
     //i put this because i want to  control error messages
     this.searchDone = true;

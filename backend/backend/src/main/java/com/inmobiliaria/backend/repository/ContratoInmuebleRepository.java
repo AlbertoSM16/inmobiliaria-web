@@ -1,5 +1,6 @@
 package com.inmobiliaria.backend.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,7 @@ public interface ContratoInmuebleRepository extends JpaRepository<ContratoInmueb
 
     @Query("SELECT c FROM ContratoInmueble c WHERE c.inmueble.id = :inmuebleId")
     Optional<ContratoInmueble> findByInmuebleId(Integer inmuebleId);
+    
+    List<ContratoInmueble> findByInmueble_Id(Integer id);
 
 }
