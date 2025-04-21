@@ -28,5 +28,12 @@ public class TipoServiceImpl implements TipoService {
         this.tipoRepository.findAll().forEach(types::add);
         return types;
     }
+    @Override
+    @Transactional(readOnly = true)
+    public List<Tipo> findById(Integer id){
+        List<Tipo> types = new ArrayList<>();
+        this.tipoRepository.findById(id).ifPresent(types::add);
+        return types;
+    }
     
 }

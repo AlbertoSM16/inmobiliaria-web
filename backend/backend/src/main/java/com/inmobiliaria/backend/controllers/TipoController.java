@@ -31,4 +31,16 @@ public class TipoController {
                 .body(Collections.singletonMap("Error", "No se han encontrado resultados"));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable Integer id) {
+        List<Tipo> optionalTypes = service.findById(id);
+
+        if (!optionalTypes.isEmpty()) {
+            return ResponseEntity.ok(optionalTypes);
+            
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap("Error", "No se ha encontrado el tipo"));
+    }
+
 }

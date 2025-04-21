@@ -6,5 +6,6 @@ import com.inmobiliaria.backend.entities.Tipo;
 public interface TipoService {
 
     List<Tipo> findAll();
+    List<Tipo> findById(Integer id);
     
 }
