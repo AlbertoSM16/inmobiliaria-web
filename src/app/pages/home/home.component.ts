@@ -2,11 +2,12 @@ import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { NavComponent } from '../../components/nav/nav.component';
 import { LandingPageComponent } from '../landing-page/landing-page.component';
 import { isPlatformBrowser } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'home',
   standalone: true,
-  imports: [NavComponent, LandingPageComponent],
+  imports: [NavComponent, LandingPageComponent,RouterModule],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {

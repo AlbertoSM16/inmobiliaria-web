@@ -44,6 +44,11 @@ export const routes: Routes = [
       path:'create',
       component: CreateHouseComponent,
       data: { animation: 'createHouseAnimation'}
+    },
+    {
+      path: 'login',
+      component: LoginComponent,
+      data: { animation: 'LoginPage' }
     }
   ];
   

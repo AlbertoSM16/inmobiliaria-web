@@ -15,4 +15,7 @@ export class TipoService {
     return this.http.get<Tipo[]>(this.apiUrl);
   }
   
+  getById(id: number): Observable<Tipo[]> {
+    return this.http.get<Tipo[]>(`${this.apiUrl}/${id}`);
+  }
 }

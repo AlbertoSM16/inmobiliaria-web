@@ -13,8 +13,10 @@ export class ContratoService {
   constructor(private http: HttpClient) { }
 
   getAll():Observable<Contract[]>{
-
     return this.http.get<Contract[]>(this.apiUrl);
   }
   
+  getById(id: number): Observable<Contract[]> {
+    return this.http.get<Contract[]>(`${this.apiUrl}/${id}`);
+  }
 }

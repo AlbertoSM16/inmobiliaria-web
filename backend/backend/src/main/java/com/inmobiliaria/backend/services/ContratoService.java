@@ -7,4 +7,5 @@ import com.inmobiliaria.backend.entities.Contrato;
 public interface ContratoService {
 
     List<Contrato> findAll();
+    List<Contrato> findById(Integer id);
 }

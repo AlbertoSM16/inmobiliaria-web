@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Tipo } from '../models/tipo';
 import { Observable } from 'rxjs';
 import { TipoInmueble } from '../models/tipoInmueble';
 

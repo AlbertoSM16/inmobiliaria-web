@@ -30,4 +30,12 @@ public class ContratoServiceImpl implements ContratoService{
         return contracts;
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Contrato> findById(Integer id){
+        List<Contrato> contracts = new ArrayList<>();
+        this.contratoRepository.findById(id).ifPresent(contracts::add);
+        return contracts;
+    }
+
 }

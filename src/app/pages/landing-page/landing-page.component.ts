@@ -4,7 +4,7 @@ import { NavComponent } from '../../components/nav/nav.component';
 
 @Component({
   selector: 'landing-page',
-  imports: [RouterOutlet,NavComponent],
+  imports: [],
   standalone:true,
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'

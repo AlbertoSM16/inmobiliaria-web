@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Inmueble } from '../../models/inmueble';
 import { Router } from '@angular/router';
 import { InmuebleService } from '../../services/inmueble.service';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'house-card',
@@ -13,6 +13,7 @@ import Swal from 'sweetalert2'
 export class HouseCardComponent {
   // I need to inherit the input from house-list
   @Input() inmueble!: Inmueble;
+
   @Output() deleted: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private router: Router, private inmuebleService: InmuebleService) { }

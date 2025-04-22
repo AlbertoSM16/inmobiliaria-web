@@ -80,6 +80,7 @@ export class EditHouseComponent implements OnInit {
   }
 
   formInitialized() {
+
     this.inmuebleForm = this.fb.group({
       titulo: [this.inmueble.titulo || ''],
       subtitle: [this.inmueble.subtitulo || ''],
@@ -90,6 +91,7 @@ export class EditHouseComponent implements OnInit {
       banios: [this.inmueble.banios || 0],
       tipoInmueble: [this.tipoInmueble.tipoInmuebleId || null],
       tipoContrato: [this.tipoContrato?.id || null]
+      
     });
   }
 
