@@ -11,6 +11,6 @@ import com.inmobiliaria.backend.entities.Users;
 public interface UserRepository extends CrudRepository<Users, Long>{
 
     Page<Users>findAll(Pageable pageable);
-    Optional<Users> findByUsername(String userName);
+    Optional<Users> findByUsuario(String userName);
     
 }

@@ -18,7 +18,6 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inmobiliaria.backend.entities.Users;
-import com.springboot.backend.alberto.userapp.users_backend.entities.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -45,8 +44,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String password = null;
 
         try {
-            Users user = new ObjectMapper().readValue(request.getInputStream(), User.class);
-            username = user.getUsername();
+            Users user = new ObjectMapper().readValue(request.getInputStream(), Users.class);
+            username = user.getUsuario();
             password = user.getPassword();
 
         } catch (StreamReadException e) {
