@@ -20,10 +20,13 @@ export class AuthComponent {
 
   
   login() {
+    console.log('Intentando iniciar sesión con', this.username, this.password);
+
     const body = {
       usuario: this.username,
       password: this.password
     };
+
     console.log(body)
     this.http.post('/login', body, { observe: 'response' }).subscribe({
       next: response => {
