@@ -16,3 +16,16 @@
   width: 20%;
 }
 
+.btn-inmo-primary {
+  background-color: #0b1d3a;
+  color: white;
+}
+.btn-inmo-primary:hover {
+  background-color: white;
+  color:#0b1d3a ;
+}
+
+.btn-inmo-accent {
+  background-color: #e14d2a;
+  color: white;
+}
