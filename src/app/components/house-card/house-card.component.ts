@@ -1,23 +1,29 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Inmueble } from '../../models/inmueble';
 import { Router } from '@angular/router';
 import { InmuebleService } from '../../services/inmueble.service';
 import Swal from 'sweetalert2';
-
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
+import { NgIf } from '@angular/common';
 @Component({
   selector: 'house-card',
-  imports: [],
+  imports: [NgIf,CommonModule],
   templateUrl: './house-card.component.html',
   styleUrl: './house-card.component.css'
 })
-export class HouseCardComponent {
+export class HouseCardComponent implements OnInit {
   // I need to inherit the input from house-list
   @Input() inmueble!: Inmueble;
-
   @Output() deleted: EventEmitter<number> = new EventEmitter<number>();
+  isLoggedIn$!: Observable<boolean>; 
+  constructor(private router: Router, private inmuebleService: InmuebleService, public authService: AuthService) { }
 
-  constructor(private router: Router, private inmuebleService: InmuebleService) { }
+  ngOnInit(): void {
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
 
+  }
   goToDetail() {
     this.router.navigate(['/inmueble/', this.inmueble.id]);
   }

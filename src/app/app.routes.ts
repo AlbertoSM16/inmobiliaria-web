@@ -7,6 +7,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { HouseInfoComponent } from './pages/house-info/house-info.component';
 import { CreateHouseComponent } from './pages/create-house/create-house.component';
 import { EditHouseComponent } from './pages/edit-house/edit-house.component';
+import { AuthComponent } from './pages/auth/auth.component';
 
 export const routes: Routes = [
     {
@@ -47,7 +48,7 @@ export const routes: Routes = [
     },
     {
       path: 'login',
-      component: LoginComponent,
+      component: AuthComponent,
       data: { animation: 'LoginPage' }
     }
   ];

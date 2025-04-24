@@ -6,8 +6,10 @@ import { Inmueble } from '../../models/inmueble';
 import { InmuebleService } from '../../services/inmueble.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
-import { CommonModule, NgForOf } from '@angular/common';
+import { CommonModule, NgForOf, NgIf } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-houses-list',
@@ -20,10 +22,13 @@ export class HousesListComponent {
   inmuebles: Inmueble[] = [];
   searchDone: boolean = false;
   noResults:boolean = false;
+  isLoggedIn$!: Observable<boolean>; 
 
-  constructor(private inmuebleService: InmuebleService,private router:Router) { }
+  constructor(private inmuebleService: InmuebleService,private router:Router, public authService: AuthService) { }
 
   ngOnInit(): void {
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
+
     this.inmuebleService.getAll().subscribe({
       next: data => this.inmuebles = data,
       error: err => console.error('Error al obtener inmuebles', err)

@@ -5,7 +5,7 @@
   <div class="mt-5 mb-5">
     <buscador (onSearch)="searchByFilter($event)"></buscador>
   </div>
-  <div class="mb-5 d-flex justify-content-center">
+  <div *ngIf="isLoggedIn$ | async" class="mb-5 d-flex justify-content-center">
     <button class="btn btn-info" (click)="goToCreate()">
       Crear inmueble
     </button>

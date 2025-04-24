@@ -4,13 +4,13 @@
   
       <form (ngSubmit)="login()" #loginForm="ngForm">
         <div class="mb-3">
-          <label for="username" class="form-label">Nombre de usuario</label>
+          <label for="usuario" class="form-label">Nombre de usuario</label>
           <input
             type="text"
             class="form-control"
-            id="username"
-            name="username"
-            [(ngModel)]="username"
+            id="usuario"
+            name="usuario"
+            [(ngModel)]="usuario"
             required
           />
         </div>
@@ -31,9 +31,9 @@
           Iniciar sesión
         </button>
   
-        <!-- <div *ngIf="errorMessage" class="text-danger text-center mt-3">
+        <div *ngIf="errorMessage" class="text-danger text-center mt-3">
           {{ errorMessage }}
-        </div> -->
+        </div>
       </form>
     </div>
   </div>
