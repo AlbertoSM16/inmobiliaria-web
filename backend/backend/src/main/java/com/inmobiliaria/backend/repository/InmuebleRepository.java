@@ -3,15 +3,15 @@ package com.inmobiliaria.backend.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 // import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 // import org.springframework.data.domain.Page;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.inmobiliaria.backend.entities.Inmueble;
 
-public interface InmuebleRepository extends CrudRepository<Inmueble, Integer> {
+public interface InmuebleRepository extends JpaRepository<Inmueble, Integer> {
 
         // Page<Inmueble>findAll(Pageable pageable);
         Optional<Inmueble> findById(Integer id);

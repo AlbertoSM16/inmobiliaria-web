@@ -10,12 +10,24 @@
       Crear inmueble
     </button>
   </div>
-  <div *ngIf="noResults" class="alert alert-warning text-center mt-4">
-    <h2>No existen inmuebles con estas condiciones.</h2>
+  <div *ngIf="noResults">
+    {{ noResultsMessage }}
   </div>
   <div *ngIf="inmuebles.length > 0">
     <house-card *ngFor="let inmueble of inmuebles" [inmueble]="inmueble" (deleted)="removeInmueble($event)">
     </house-card>
   </div>
-
+  <div class="d-flex my-5 justify-content-center mt-4" *ngIf="totalPages > 0">
+    <button class="btn btn-outline-primary me-2" (click)="changePage(page - 1)" [disabled]="page === 0">Anterior</button>
+    <ng-container *ngFor="let p of [].constructor(totalPages); let i = index">
+      <button
+        class="btn"
+        [ngClass]="{'btn-primary': i === page, 'btn-outline-primary mx-2': i !== page}"
+        (click)="changePage(i)">
+        {{ i + 1 }}
+      </button>
+    </ng-container>
+  
+    <button class="btn btn-outline-primary ms-2" (click)="changePage(page + 1)" [disabled]="page === totalPages - 1">Siguiente</button>
+  </div>
 </div>

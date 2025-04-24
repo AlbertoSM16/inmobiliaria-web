@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { NavComponent } from '../../components/nav/nav.component';
-
+import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'landing-page',
-  imports: [],
+  imports: [RouterModule],
   standalone:true,
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
 })
 export class LandingPageComponent {
+
+  constructor(private router:Router){}
   title = 'La forma más fácil y segura de encontrar tu próxima propiedad'
 }

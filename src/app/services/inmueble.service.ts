@@ -16,7 +16,12 @@ export class InmuebleService {
     return this.http.get<Inmueble[]>(this.apiUrl);
 
   }
-
+  //pagenation
+  getInmueblesPaginated(page: number, size: number) {
+    return this.http.get<any>(`/api/inmuebles/page?page=${page}&size=${size}`);
+  }
+  
+  //get by id
   getById(id: number): Observable<Inmueble>{
     return this.http.get<Inmueble>(this.apiUrl + '/' + id)
   }

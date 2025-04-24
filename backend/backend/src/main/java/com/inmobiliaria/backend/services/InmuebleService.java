@@ -3,6 +3,9 @@ package com.inmobiliaria.backend.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.inmobiliaria.backend.dto.InmuebleRequestDTO;
 
 // import org.springframework.data.domain.Page;
@@ -15,6 +18,8 @@ import io.micrometer.common.lang.NonNull;
 public interface InmuebleService {
 
     List<Inmueble> findAll();
+    
+    Page<Inmueble> findAll(Pageable pageable);
 
     Optional<Inmueble>findById(@NonNull Integer id);
 

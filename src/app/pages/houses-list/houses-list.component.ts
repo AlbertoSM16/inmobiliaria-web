@@ -7,9 +7,9 @@ import { InmuebleService } from '../../services/inmueble.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-
-import { CommonModule, NgForOf, NgIf } from '@angular/common';
+import { CommonModule, NgForOf } from '@angular/common';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-houses-list',
@@ -21,25 +21,41 @@ import { Observable } from 'rxjs';
 export class HousesListComponent {
   inmuebles: Inmueble[] = [];
   searchDone: boolean = false;
-  noResults:boolean = false;
-  isLoggedIn$!: Observable<boolean>; 
+  page = 0;
+  size = 3;
+  totalPages = 0;
+  noResultsMessage: string = '';
+  noResults: boolean = false;
+  isLoggedIn$!: Observable<boolean>;
 
-  constructor(private inmuebleService: InmuebleService,private router:Router, public authService: AuthService) { }
+  constructor(private inmuebleService: InmuebleService, private router: Router, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
+    this.noResultsMessage = '';
 
-    this.inmuebleService.getAll().subscribe({
-      next: data => this.inmuebles = data,
-      error: err => console.error('Error al obtener inmuebles', err)
-
-    })
+   this.loadPage(this.page);
   }
 
-  goToCreate(){
+  goToCreate() {
     this.router.navigate(['create']);
 
   }
+
+  loadPage(page: number) {
+    this.inmuebleService.getInmueblesPaginated(page, this.size).subscribe(res => {
+      this.inmuebles = res.content;
+      this.page = res.number;
+      this.totalPages = res.totalPages;
+    });
+  }
+
+  changePage(newPage: number) {
+    if (newPage >= 0 && newPage < this.totalPages) {
+      this.loadPage(newPage);
+    }
+  }
+
   searchByFilter(filters: any) {
     //i put this because i want to  control error messages
     this.searchDone = true;
@@ -55,7 +71,12 @@ export class HousesListComponent {
       },
       error: (error) => {
         this.inmuebles = [];
-        this.noResults = true; 
+        this.noResults = true;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "No hay inmuebles con esas características!",
+        });
       }
     });
   }

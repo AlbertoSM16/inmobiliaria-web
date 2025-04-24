@@ -25,9 +25,7 @@ export class AuthComponent {
   ) { }
 
   login() {
-    console.log('Intentando iniciar sesión...');
-    console.log('Usuario:', this.usuario);
-    console.log('Contraseña:', this.password);
+    console.log("creedenciales",this.usuario,this.password);
     this.http.post<any>('/login', {
       usuario: this.usuario,
       password: this.password
@@ -38,7 +36,6 @@ export class AuthComponent {
       response => {
         const token = response.body['token'];
         this.authService.login(token);
-        console.log('Inicio de sesión exitoso');
         this.router.navigate(['houses-list']);
       },
       error => {
@@ -48,7 +45,6 @@ export class AuthComponent {
           text: "Usuario o contraseña incorrectos"
          
         });
-        console.error('Error al iniciar sesión:', error);
       }
     );
   }

@@ -43,6 +43,7 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/types/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/type-buildings/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/type-buildings").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/inmuebles/page").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/inmuebles").hasRole("admin")
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/inmuebles/{id}").hasRole("admin")
