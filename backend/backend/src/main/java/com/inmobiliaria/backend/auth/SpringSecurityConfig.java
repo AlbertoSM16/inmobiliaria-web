@@ -33,6 +33,7 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/api/inmuebles", "/api/users/page/{page}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/inmuebles/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/inmuebles/all").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/contracts").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/contracts/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/type-contract").permitAll()
