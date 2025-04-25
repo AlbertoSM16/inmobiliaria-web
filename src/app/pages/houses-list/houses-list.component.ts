@@ -22,7 +22,7 @@ export class HousesListComponent {
   inmuebles: Inmueble[] = [];
   searchDone: boolean = false;
   page = 0;
-  size = 3;
+  size = 5;
   totalPages = 0;
   noResultsMessage: string = '';
   noResults: boolean = false;
@@ -44,6 +44,7 @@ export class HousesListComponent {
 
   loadPage(page: number) {
     this.inmuebleService.getInmueblesPaginated(page, this.size).subscribe(res => {
+      console.log(res);
       this.inmuebles = res.content;
       this.page = res.number;
       this.totalPages = res.totalPages;

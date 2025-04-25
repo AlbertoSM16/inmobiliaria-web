@@ -43,13 +43,12 @@ export class HouseInfoComponent implements OnInit {
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.inmuebleService.getById(id).subscribe(data => {
+      console.log(data);
       this.inmueble = data;
       this.tipoContratoService.getTypeContract(this.inmueble.id).subscribe(dataContract =>{
         this.typeContract = dataContract[0];
-        console.log("contrato", this.typeContract);
         this.contratoService.getById(this.typeContract.id).subscribe(dataContractName =>{
           this.typeContractName = dataContractName[0];
-          console.log("contrato nombre", this.typeContractName);
 
         })
       })

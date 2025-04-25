@@ -17,12 +17,10 @@
 
 .btn-nav {
     background-color: #28a745;
-    /* tu color personalizado */
     color: white;
     border: none;
 }
 
 .btn-nav:hover {
     background-color: #218838;
-    /* un tono más oscuro al pasar el ratón */
 }
