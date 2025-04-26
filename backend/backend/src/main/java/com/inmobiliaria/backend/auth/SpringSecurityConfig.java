@@ -31,7 +31,7 @@ public class SpringSecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/api/inmuebles", "/api/users/page/{page}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/inmuebles", "/api/inmuebles/page").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/inmuebles/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/inmuebles/all").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/contracts").permitAll()
@@ -41,10 +41,10 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/type-contract").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/types").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/types/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/type-buildings/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/type-buildings").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/inmuebles/page").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/inmuebles").hasRole("admin")
+                        .requestMatchers(HttpMethod.POST, "/api/inmuebles").permitAll()//hasRole("admin")
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/inmuebles/{id}").hasRole("admin")
                         .requestMatchers(HttpMethod.DELETE, "/api/inmuebles/{id}").hasRole("admin")

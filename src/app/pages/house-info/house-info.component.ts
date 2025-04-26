@@ -26,8 +26,8 @@ export class HouseInfoComponent implements OnInit {
   inmueble !: Inmueble;
   typeBuilding !: TipoInmueble;
   typeBuildingName !: Tipo;
-  typeContract !: TipoContrato;
-  typeContractName !: Contract;
+  typeContract !: any;
+  typeContractName !: any;
   constructor(
     private inmuebleService: InmuebleService,
     private route: ActivatedRoute,
@@ -43,11 +43,10 @@ export class HouseInfoComponent implements OnInit {
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.inmuebleService.getById(id).subscribe(data => {
-      console.log(data);
       this.inmueble = data;
       this.tipoContratoService.getTypeContract(this.inmueble.id).subscribe(dataContract =>{
         this.typeContract = dataContract[0];
-        this.contratoService.getById(this.typeContract.id).subscribe(dataContractName =>{
+        this.contratoService.getById(this.typeContract.contrato.id).subscribe(dataContractName =>{
           this.typeContractName = dataContractName[0];
 
         })

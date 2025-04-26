@@ -91,6 +91,7 @@ public class InmuebleServiceImpl implements InmuebleService {
         inmueble.setBanios(dto.banios);
         inmueble.setDormitorios(dto.dormitorios);
         inmueble.setSubtitulo(dto.subtitulo);
+        inmueble.setArea(dto.area);
 
         Inmueble saved = repository.save(inmueble);
 
@@ -126,6 +127,7 @@ public class InmuebleServiceImpl implements InmuebleService {
         inmueble.setBanios(dto.banios);
         inmueble.setDormitorios(dto.dormitorios);
         inmueble.setSubtitulo(dto.subtitulo);
+        inmueble.setArea(dto.area);
 
         Inmueble updated = repository.save(inmueble);
 

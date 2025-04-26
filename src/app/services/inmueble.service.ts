@@ -26,9 +26,10 @@ export class InmuebleService {
     return this.http.get<Inmueble>(this.apiUrl + '/' + id)
   }
   //create
-  createInmueble(dto: InmuebleRequestDTO): Observable<any> {
-    return this.http.post(this.apiUrl, dto);
+  crearInmueble(formData: FormData): Observable<any> {
+    return this.http.post(this.apiUrl, formData);
   }
+  
   // searches
 
   getByFilters(localidad: string, tipoId: number, contratoId: number) {

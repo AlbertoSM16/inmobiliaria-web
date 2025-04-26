@@ -27,6 +27,9 @@ public class Inmueble {
     @Column(nullable = false, length = 30)
     private String precio;
 
+    @Column(nullable = false)
+    private Integer area;
+    
     @Column(nullable = false, columnDefinition = "TEXT")
     private String descripcion;
 
@@ -99,6 +102,14 @@ public class Inmueble {
 
     public void setGaleria_fotos(String galeria_fotos) {
         this.galeriaFoto = galeria_fotos;
+    }
+
+    public Integer getArea() {
+        return area;
+    }
+
+    public void setArea(Integer area) {
+        this.area = area;
     }
 
     public String getFoto_principal() {

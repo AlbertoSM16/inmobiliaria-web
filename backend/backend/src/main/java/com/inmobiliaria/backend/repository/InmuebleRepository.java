@@ -36,6 +36,7 @@ public interface InmuebleRepository extends JpaRepository<Inmueble, Integer> {
                         @Param("localidad") String localidad,
                         @Param("contratoId") Integer contratoId,
                         @Param("tipoId") Integer tipoId);
+                        
         //search by type of building and contract
 //         @Query("SELECT i FROM Inmueble i " +
 //                         "JOIN ContratoInmueble ci ON i.id = ci.inmueble.id " +

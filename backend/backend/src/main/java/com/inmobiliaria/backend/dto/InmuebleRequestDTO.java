@@ -1,5 +1,6 @@
 package com.inmobiliaria.backend.dto;
 
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -23,7 +24,9 @@ public class InmuebleRequestDTO {
     public String foto_principal;
     
     public Integer banios;
-    
+
+    public Integer area;
+
     public Integer dormitorios;
     
     @NotBlank

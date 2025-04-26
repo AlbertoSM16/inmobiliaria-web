@@ -21,7 +21,7 @@ export class CreateHouseComponent implements OnInit {
   inmuebleForm!: FormGroup;
   tiposInmuebles!: Tipo[];
   tiposContratos!: Contract[];
-
+  selectedFiles: File[] = [];
   newImages: File[] = [];
   previewImages: string[] = [];
 
@@ -82,32 +82,30 @@ export class CreateHouseComponent implements OnInit {
     });
   }
 
-  guardarInmueble(): void {
-    const formValue = this.inmuebleForm.value;
-
-    const dto: InmuebleRequestDTO = {
-      titulo: formValue.titulo,
-      subtitulo: formValue.subtitle,
-      descripcion: formValue.descripcion,
-      precio: String(formValue.precio),
-      localidad: formValue.localidad,
-      banios: formValue.banios ?? 0,
-      dormitorios: formValue.dormitorios,
-      tipoId: formValue.tipoInmueble,
-      contratoId: formValue.tipoContrato,
-      foto_principal: this.newImages.length > 0 ? this.newImages[0].name : '',
-      galeria_fotos: this.newImages.map(f => f.name).join(',')
-    };
-
-    this.inmuebleService.createInmueble(dto).subscribe({
-      next: () => {
-        alert('Inmueble creado correctamente');
-        this.router.navigate(['/inmuebles']);
-      },
-      error: err => {
-        console.error('Error al crear inmueble:', err);
-        alert('Error al crear inmueble');
+  guardarInmueble() {
+    if (this.inmuebleForm.valid && this.selectedFiles.length > 0) {
+      const formData = new FormData();
+  
+      formData.append('titulo', this.inmuebleForm.get('titulo')?.value);
+      formData.append('precio', this.inmuebleForm.get('precio')?.value);
+      formData.append('descripcion', this.inmuebleForm.get('descripcion')?.value);
+      formData.append('localidad', this.inmuebleForm.get('localidad')?.value);
+      formData.append('banios', this.inmuebleForm.get('banios')?.value.toString());
+      formData.append('dormitorios', this.inmuebleForm.get('dormitorios')?.value.toString());
+      formData.append('subtitulo', this.inmuebleForm.get('subtitulo')?.value);
+      formData.append('tipoId', this.inmuebleForm.get('tipoInmueble')?.value.toString());
+      formData.append('contratoId', this.inmuebleForm.get('tipoContrato')?.value.toString());
+  
+      // Fotos
+      formData.append('fotoPrincipal', this.selectedFiles[0]);
+      for (let i = 1; i < this.selectedFiles.length; i++) {
+        formData.append('galeriaFotos', this.selectedFiles[i]);
       }
-    });
+  
+      this.inmuebleService.crearInmueble(formData).subscribe(response => {
+        console.log('Inmueble creado con éxito', response);
+      });
+    }
   }
+  
 }
