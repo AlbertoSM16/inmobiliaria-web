@@ -40,21 +40,24 @@ export class HouseCardComponent implements OnInit {
 
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Eliminado!",
-          text: "Inmueble eliminado con exito.",
-          icon: "success"
-        });
+       
         this.inmuebleService.delete(this.inmueble.id).subscribe({
           next: () => {
     
             this.deleted.emit(this.inmueble.id);
-    
+            Swal.fire({
+              title: "Eliminado!",
+              text: "Inmueble eliminado con exito.",
+              icon: "success"
+            });
             this.router.navigate(['/inmuebles']);
           },
           error: err => {
-            console.error('Error al eliminar inmueble:', err);
-            alert('Error al eliminar inmueble');
+            Swal.fire({
+              title: "ERROR!",
+              text: "El inmueble no ha podido ser eliminado.",
+              icon: "error"
+            });
           }
         });
       }

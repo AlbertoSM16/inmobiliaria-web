@@ -1,4 +1,4 @@
-package com.inmobiliaria.backend.controllers.config;
+package com.inmobiliaria.backend.config;
 
 
 import org.springframework.context.annotation.Configuration;

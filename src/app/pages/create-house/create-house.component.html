@@ -4,73 +4,122 @@
   <h2 class="mb-4">Crear Inmueble</h2>
 
   <form [formGroup]="inmuebleForm" (ngSubmit)="guardarInmueble()">
-    <!-- title -->
+
+    <!-- Título -->
     <div class="mb-3">
-      <label for="titulo" class="form-label">Título</label>
+      <label for="titulo" class="form-label">Título:</label>
       <input type="text" id="titulo" class="form-control" formControlName="titulo">
     </div>
 
-    <!-- subtitle -->
+    <!-- Subtítulo -->
     <div class="mb-3">
-      <label for="subtitle" class="form-label">Subtítulo</label>
-      <textarea id="subtitle" rows="2" class="form-control" formControlName="subtitle"></textarea>
+      <label for="subtitle" class="form-label">Subtítulo:</label>
+      <input type="text" id="subtitle" class="form-control" formControlName="subtitle">
     </div>
 
-    <!-- description -->
+    <!-- Descripción -->
     <div class="mb-3">
-      <label for="descripcion" class="form-label">Descripción</label>
-      <textarea id="descripcion" rows="4" class="form-control" formControlName="descripcion"></textarea>
+      <label for="descripcion" class="form-label">Descripción:</label>
+      <textarea id="descripcion" class="form-control" formControlName="descripcion"></textarea>
     </div>
 
-    <!-- price -->
+    <!-- Área -->
     <div class="mb-3">
-      <label for="precio" class="form-label">Precio (€)</label>
+      <label for="area" class="form-label">Área (m²):</label>
+      <input type="number" id="area" class="form-control" formControlName="area">
+    </div>
+
+    <!-- Precio -->
+    <div class="mb-3">
+      <label for="precio" class="form-label">Precio:</label>
       <input type="number" id="precio" class="form-control" formControlName="precio">
     </div>
 
-    <!-- image upload -->
-    <label for="fotos">Añadir fotos:</label>
-    <input type="file" (change)="onFileSelected($event)" multiple />
-
-    <!-- preview of new images -->
-    <div *ngIf="previewImages.length > 0">
-      <h4>Vista previa:</h4>
-      <div *ngFor="let img of previewImages">
-        <img [src]="img" width="100" class="me-2 mb-2" />
-      </div>
-    </div>
-    <!-- location -->
+    <!-- Localidad -->
     <div class="mb-3">
-      <label for="localidad" class="form-label">Localidad</label>
+      <label for="localidad" class="form-label">Localidad:</label>
       <input type="text" id="localidad" class="form-control" formControlName="localidad">
     </div>
 
-    <!-- bathrooms -->
+    <!-- Número de Baños -->
     <div class="mb-3">
-      <label for="banios" class="form-label">Baños</label>
+      <label for="banios" class="form-label">Baños:</label>
       <input type="number" id="banios" class="form-control" formControlName="banios">
     </div>
 
-    <!-- bedrooms -->
+    <!-- Número de Dormitorios -->
     <div class="mb-3">
-      <label for="dormitorios" class="form-label">Dormitorios</label>
+      <label for="dormitorios" class="form-label">Dormitorios:</label>
       <input type="number" id="dormitorios" class="form-control" formControlName="dormitorios">
     </div>
-    <!-- type of building -->
+
+    <!-- Tipo de Inmueble -->
     <div class="mb-3">
-      <label for="tipoInmueble" class="form-label">Tipo de inmueble</label>
+      <label for="tipoInmueble" class="form-label">Tipo de Inmueble:</label>
       <select id="tipoInmueble" class="form-select" formControlName="tipoInmueble">
         <option *ngFor="let tipo of tiposInmuebles" [value]="tipo.id">{{ tipo.nombre }}</option>
       </select>
     </div>
 
-    <!-- type of contract -->
+    <!-- Tipo de Contrato -->
     <div class="mb-3">
-      <label for="tipoContrato" class="form-label">Tipo de contrato</label>
+      <label for="tipoContrato" class="form-label">Tipo de Contrato:</label>
       <select id="tipoContrato" class="form-select" formControlName="tipoContrato">
         <option *ngFor="let contrato of tiposContratos" [value]="contrato.id">{{ contrato.nombre }}</option>
       </select>
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="inmuebleForm.invalid">Crear inmueble</button>
+
+    <!-- Foto Principal -->
+    <div class="mb-3">
+      <label for="fotoPrincipal" class="form-label">Foto principal:</label>
+      <input type="file" id="fotoPrincipal" class="form-control" (change)="onFotoPrincipalSelected($event)"
+        accept="image/*">
+    </div>
+
+    <!-- Vista previa Foto Principal -->
+    <div *ngIf="previewPrincipal" class="mb-3">
+      <h5>Vista previa de foto principal:</h5>
+      <img [src]="previewPrincipal" width="150" class="me-2 mb-2">
+    </div>
+
+    <!-- Galería de Fotos -->
+    <div class="mb-3">
+      <label for="galeriaFotos" class="form-label">Galería de fotos:</label>
+      <input type="file" id="galeriaFotos" class="form-control" (change)="onGaleriaFotosSelected($event)" multiple
+        accept="image/*">
+    </div>
+
+    <!-- Vista previa Galería -->
+    <div *ngIf="previewGaleria.length > 0" class="mb-3">
+      <h5>Vista previa de galería:</h5>
+      <div *ngFor="let img of previewGaleria">
+        <img [src]="img" width="100" class="me-2 mb-2">
+      </div>
+    </div>
+
+    <!-- Botón de Crear -->
+    <div class="text-center">
+      <button type="submit" class="btn btn-success">Crear Inmueble</button>
+    </div>
+
   </form>
+ <!-- Toast universal -->
+<div aria-live="polite" aria-atomic="true" style="position: fixed; top: 1rem; right: 1rem; z-index: 9999;">
+  <div class="toast show" role="alert" *ngIf="showToast"
+    [ngClass]="{
+      'bg-success': toastType === 'success',
+      'bg-warning text-dark': toastType === 'warning',
+      'bg-danger': toastType === 'error'
+    }"
+    style="color: white; min-width: 250px;">
+    <div class="d-flex">
+      <div class="toast-body">
+        {{ toastMessage }}
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" aria-label="Close" (click)="showToast = false"></button>
+    </div>
+  </div>
+</div>
+
+
 </div>

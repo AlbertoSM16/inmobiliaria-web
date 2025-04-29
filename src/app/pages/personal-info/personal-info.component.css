@@ -1,3 +1,24 @@
-.bg-color{
-    background-color: #a0bfd8;
+.bg-soft-purple {
+    background-color: #f9f5ff;
+}
+.text-dark-purple {
+    color: #5a3d8a;
+}
+.divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #9c7bd9, #5a3d8a);
+    margin-top: 1.5rem;
+}
+.service-item {
+    transition: all 0.25s ease;
+    border-left: 3px solid #9c7bd9;
+    cursor: default;
+}
+.service-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 12px rgba(92, 61, 138, 0.08) !important;
+}
+.rounded {
+    border-radius: 10px !important;
 }

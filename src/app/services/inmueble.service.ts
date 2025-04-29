@@ -51,9 +51,9 @@ export class InmuebleService {
   }
 
   //delete
-  delete(id: number): Observable<any>{
-    return this.http.delete<any>(this.apiUrl + '/' + id);
+  delete(id: number): Observable<any> {
+    return this.http.delete(`http://localhost:8080/api/inmuebles/${id}`);
   }
-
+  
 
 }
