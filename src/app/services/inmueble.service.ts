@@ -41,10 +41,9 @@ export class InmuebleService {
   }
 
   //edit
-  update(inmueble: Inmueble): Observable<Inmueble>{
-    return this.http.put<Inmueble>(this.apiUrl, inmueble);
+  update(id: number, inmueble: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, inmueble);
   }
-
   //create
   create(inmueble: Inmueble): Observable<Inmueble>{
     return this.http.post<Inmueble>(this.apiUrl, inmueble);

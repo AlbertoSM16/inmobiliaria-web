@@ -1,5 +1,5 @@
 .bg-hero {
-    background-image: url('../../../assets/casa2.jpg');
+    background-image: url('/assets/casa2.jpg');
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -15,7 +15,43 @@
   height: 20%;
   width: 20%;
 }
-
+@media (max-width: 768px) {
+    /* Centrar todo en móviles */
+    .bg-hero {
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding: 2rem 1rem;
+    }
+  
+    /* Logo más grande en móviles */
+    .lading-logo {
+      width: 70vw;
+      margin: 1rem auto;
+      display: block;
+    }
+  
+    /* Centrar título */
+    .lading-title {
+      text-align: center;
+    }
+  
+    /* Centrar botón abajo */
+    .bg-hero > div:last-child {
+      width: 100% !important;
+      display: flex;
+      justify-content: center;
+      margin-top: auto !important;
+      margin-bottom: 2rem;
+    }
+  
+    .btn-inmo-primary {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+    }
+  .lading-logo {
+    width: 80vw; 
+  }
+}
 .btn-inmo-primary {
   background-color: #0b1d3a;
   color: white;

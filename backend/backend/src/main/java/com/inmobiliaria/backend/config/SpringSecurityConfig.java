@@ -44,7 +44,7 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/type-buildings").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/inmuebles").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/api/inmuebles/{id}").hasRole("admin")
+                        .requestMatchers(HttpMethod.PUT, "/api/inmuebles/{id}").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/inmuebles/{id}").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

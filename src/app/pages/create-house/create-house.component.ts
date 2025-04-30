@@ -94,7 +94,7 @@ export class CreateHouseComponent {
     if (event.target.files) {
       this.galeriaFiles = Array.from(event.target.files);
 
-      this.cantidadFotosGaleria = this.galeriaFiles.length; // 💥 Actualizar contador
+      this.cantidadFotosGaleria = this.galeriaFiles.length; 
 
       this.previewGaleria = [];
       this.galeriaFiles.forEach(file => {

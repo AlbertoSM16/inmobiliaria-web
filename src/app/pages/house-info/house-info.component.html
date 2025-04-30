@@ -3,7 +3,7 @@
   <div class="container my-5">
 
     <!-- Carrusel de imágenes -->
-    <div id="carouselFotos" class="carousel slide mb-4" data-bs-ride="carousel">
+    <div id="carouselFotos" class="carousel slide mb-4 carrusel-detalle" data-bs-ride="carousel">
       <div class="carousel-inner">
         <!-- Imagen principal -->
         <div class="carousel-item active">
@@ -15,7 +15,6 @@
         <div class="carousel-item" *ngFor="let img of inmueble.galeria_fotos?.split(',')">
           <img [src]="'http://localhost:8080' + img" class="d-block w-100 rounded" alt="Imagen adicional">
         </div>
-
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselFotos" data-bs-slide="prev">
         <span class="carousel-control-prev-icon"></span>
@@ -28,23 +27,33 @@
     <!-- Detalles de la vivienda -->
     <div class="card shadow-lg">
       <div class="card-body">
-        <h2 class="card-title">{{ inmueble.titulo }}</h2>
-        <h5 class="text-muted mb-3">{{ inmueble.subtitulo }}</h5>
-
-        <p class="card-text">{{ inmueble.descripcion }}</p>
-
-        <ul class="list-group list-group-flush mb-3">
-          <li class="list-group-item"><strong>Área:</strong> {{ inmueble.area }} m2</li>
+        <div class="d-flex detalle-header">
+          <div class="texto-inmueble flex-grow-1">
+            <h2 class="card-title">{{ inmueble.titulo }}</h2>
+            <h5 class="text-muted mb-3">{{ inmueble.subtitulo }}</h5>
+            <p class="card-text">{{ inmueble.descripcion }}</p>
+          </div>
+          <div class="btn-wrapper">
+            <a href="tel:+34123456789" class="btn btn-success d-flex align-items-center gap-2 call-button">
+              <i class="bi bi-telephone-fill"></i> Llamar ahora
+            </a>
+          </div>
+          
+        </div>
+       
+        <!-- Lista de detalles -->
+        <ul class="list-group list-group-flush mb-3 mt-3">
+          <li class="list-group-item"><strong>Área:</strong> {{ inmueble.area }} m²</li>
           <li class="list-group-item"><strong>Localidad:</strong> {{ inmueble.localidad }}</li>
           <li class="list-group-item"><strong>Dormitorios:</strong> {{ inmueble.dormitorios }}</li>
           <li class="list-group-item"><strong>Baños:</strong> {{ inmueble.banios }}</li>
-          <li class="list-group-item"><strong>Tipo de inmueble: </strong> {{ typeBuildingName.nombre }} </li>
-          <li class="list-group-item"><strong>Tipo de contrato: </strong>{{typeContractName.nombre}} </li>
+          <li class="list-group-item"><strong>Tipo de inmueble:</strong> {{ typeBuildingName.nombre }}</li>
+          <li class="list-group-item"><strong>Tipo de contrato:</strong> {{ typeContractName.nombre }}</li>
         </ul>
 
+        <!-- Botón volver -->
         <button class="btn btn-secondary mt-2" (click)="goToList()">Volver al listado</button>
       </div>
     </div>
   </div>
-
 </div>
