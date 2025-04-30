@@ -8,11 +8,12 @@ import { TipoContratoService } from '../../services/tipoContrato.service';
 import { HeaderComponent } from "../../components/header/header.component";
 import { InmuebleTipoService } from '../../services/inmuebleTipo.service';
 import { TipoService } from '../../services/tipo.service';
-import { TipoContrato } from '../../models/tipoContrato';
+import { AuthService } from '../../services/auth.service';
+
 import { TipoInmueble } from '../../models/tipoInmueble';
 import { Tipo } from '../../models/tipo';
-import { Contract } from '../../models/contract';
 import { ContratoService } from '../../services/contrato.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'house-info',
@@ -28,6 +29,8 @@ export class HouseInfoComponent implements OnInit {
   typeBuildingName !: Tipo;
   typeContract !: any;
   typeContractName !: any;
+  isLoggedIn$!: Observable<boolean>; 
+  
   constructor(
     private inmuebleService: InmuebleService,
     private route: ActivatedRoute,
@@ -35,12 +38,15 @@ export class HouseInfoComponent implements OnInit {
     private contratoService : ContratoService,
     private inmuebleTipoService: InmuebleTipoService,
     private tipoService: TipoService,
+    public authService: AuthService,
     private router: Router) { }
 
   goToList() {
     this.router.navigate(['/houses-list/']);
   }
   ngOnInit(): void {
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
+
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.inmuebleService.getById(id).subscribe(data => {
       this.inmueble = data;

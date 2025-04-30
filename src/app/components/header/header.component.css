@@ -9,12 +9,20 @@
     object-fit: cover;
   }
 
+  .letras-header {
+    font-weight: 600;
+    font-size: 2.5rem;
+  }
   @media (max-width: 768px) {
   .btn-nav {
     margin-left: 7%;
     font-size: 100%;
   }
 
+  .letras-header {
+    font-weight: 300;      
+    font-size: 1.5rem;   
+  }
   
 
   .nav-logo img {

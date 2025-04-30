@@ -1,20 +1,25 @@
-<div class="container bg-light card col text-center my-4">
-  <img [src]="'http://localhost:8080' + inmueble.foto_principal" class="d-block w-100 rounded">
-  
-  <h2 class="text-lg font-bold">{{ inmueble.titulo }}</h2>
-  <p>{{ inmueble.descripcion }}</p>
-  <p class="text-lg font-semibold">{{ inmueble.precio }} €</p>
+<div class="container bg-light card col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 text-center my-4 p-3 shadow">
+
+  <img [src]="'http://localhost:8080' + inmueble.foto_principal" class="d-block w-100 rounded mb-3" alt="Imagen principal">
+
+  <h2 class="fw-bold fs-3 text-primary mb-2">{{ inmueble.titulo }}</h2>
+
+  <p class="text-secondary mb-2" style="font-size: 1rem;">{{ inmueble.subtitulo }}</p>
+
+  <p class="text-dark fw-semibold mb-3" style="font-size: 1.1rem;">{{ inmueble.localidad }}</p>
 
   <div class="d-flex justify-content-center gap-2 my-4">
 
-    <button class="btn btn-primary " (click)="goToDetail()">
+    <button class="btn btn-primary" (click)="goToDetail()">
       Consultar más información
     </button>
+
     <button *ngIf="isLoggedIn$ | async"
       class="btn btn-warning px-2 py-1 d-flex align-items-center justify-content-center"
       style="width: 38px; height: 38px;" (click)="goToEdit()">
       <i class="bi bi-pencil-square fs-5"></i>
     </button>
+
     <button *ngIf="isLoggedIn$ | async" class="btn btn-danger" (click)="deleteBuilding()">
       <i class="bi bi-trash"></i>
     </button>
