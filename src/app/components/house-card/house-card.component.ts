@@ -50,7 +50,7 @@ export class HouseCardComponent implements OnInit {
               text: "Inmueble eliminado con exito.",
               icon: "success"
             });
-            this.router.navigate(['/inmuebles']);
+            this.router.navigate(['/houses-list']);
           },
           error: err => {
             Swal.fire({

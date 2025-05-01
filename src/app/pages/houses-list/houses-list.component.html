@@ -1,4 +1,14 @@
 <div>
+  <div class="position-absolute top-0 end-0 mt-2 me-3">
+    <div class="dropdown">
+      <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        Usuario
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" [routerLink]="['/login']">Iniciar sesión</a></li>
+      </ul>
+    </div>
+  </div>
   <div>
     <component-header></component-header>
   </div>

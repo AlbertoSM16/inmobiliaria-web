@@ -46,12 +46,16 @@
           <li class="list-group-item"><strong>Área:</strong> {{ inmueble.area }} m²</li>
           <li *ngIf="isLoggedIn$ | async" class="list-group-item">
             <strong>Precio:</strong> {{ inmueble.precio }} €
-          </li>          
+          </li>
           <li class="list-group-item"><strong>Localidad:</strong> {{ inmueble.localidad }}</li>
           <li class="list-group-item"><strong>Dormitorios:</strong> {{ inmueble.dormitorios }}</li>
           <li class="list-group-item"><strong>Baños:</strong> {{ inmueble.banios }}</li>
-          <li class="list-group-item"><strong>Tipo de inmueble:</strong> {{ typeBuildingName.nombre }}</li>
-          <li class="list-group-item"><strong>Tipo de contrato:</strong> {{ typeContractName.nombre }}</li>
+          <li *ngIf="typeBuildingName" class="list-group-item">
+            <strong>Tipo de inmueble:</strong> {{ typeBuildingName.nombre }}
+          </li>
+          <li *ngIf="typeContractName" class="list-group-item">
+            <strong>Tipo de contrato:</strong> {{ typeContractName.nombre }}
+          </li>
         </ul>
 
         <!-- Botón volver -->

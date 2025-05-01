@@ -5,7 +5,7 @@ import { HouseCardComponent } from '../../components/house-card/house-card.compo
 import { Inmueble } from '../../models/inmueble';
 import { InmuebleService } from '../../services/inmueble.service';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule, NgForOf } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-houses-list',
-  imports: [BuscadorComponent, HeaderComponent, HouseCardComponent, FormsModule, CommonModule, NgForOf],
+  imports: [BuscadorComponent, HeaderComponent, HouseCardComponent, FormsModule, CommonModule, NgForOf, RouterLink],
   standalone: true,
   templateUrl: './houses-list.component.html',
   styleUrl: './houses-list.component.css'

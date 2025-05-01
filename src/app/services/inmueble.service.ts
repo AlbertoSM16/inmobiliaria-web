@@ -53,6 +53,8 @@ export class InmuebleService {
   delete(id: number): Observable<any> {
     return this.http.delete(`http://localhost:8080/api/inmuebles/${id}`);
   }
-  
+  updateWithFiles(id: string, data: FormData) {
+    return this.http.put(`http://localhost:8080/api/inmuebles/${id}`, data);
+  }
 
 }

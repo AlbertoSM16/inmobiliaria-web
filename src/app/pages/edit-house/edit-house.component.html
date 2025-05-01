@@ -1,82 +1,104 @@
-  <component-header></component-header>
+<component-header></component-header>
 
-  <div class="container mt-4">
-    <h2 class="mb-4">Editar Inmueble</h2>
+<div class="container mt-4">
+  <h2 class="mb-4">Editar Inmueble</h2>
 
-    <form [formGroup]="inmuebleForm" (ngSubmit)="guardarCambios()">
-      
-      <!-- Título -->
-      <div class="mb-3">
-        <label for="titulo" class="form-label">Título</label>
-        <input id="titulo" type="text" class="form-control" formControlName="titulo" required>
+  <form *ngIf="inmuebleForm"  [formGroup]="inmuebleForm" (ngSubmit)="guardarCambios()">
+
+    <!-- Campos de texto -->
+    <div class="mb-3">
+      <label for="titulo" class="form-label">Título</label>
+      <input id="titulo" type="text" class="form-control" formControlName="titulo" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="subtitle" class="form-label">Subtítulo</label>
+      <input id="subtitle" type="text" class="form-control" formControlName="subtitulo">
+    </div>
+
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <textarea id="descripcion" class="form-control" formControlName="descripcion" rows="3"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="area" class="form-label">Área (m²)</label>
+      <input id="area" type="number" class="form-control" formControlName="area">
+    </div>
+
+    <div class="mb-3">
+      <label for="precio" class="form-label">Precio (€)</label>
+      <input id="precio" type="number" class="form-control" formControlName="precio" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="localidad" class="form-label">Localidad</label>
+      <input id="localidad" type="text" class="form-control" formControlName="localidad" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="banios" class="form-label">Baños</label>
+      <input id="banios" type="number" class="form-control" formControlName="banios">
+    </div>
+
+    <div class="mb-3">
+      <label for="dormitorios" class="form-label">Dormitorios</label>
+      <input id="dormitorios" type="number" class="form-control" formControlName="dormitorios">
+    </div>
+
+    <div class="mb-3">
+      <label for="tipoInmueble" class="form-label">Tipo de Inmueble</label>
+      <select id="tipoInmueble" class="form-select" formControlName="tipoId" required>
+        <option value="">Seleccione un tipo de inmueble</option>
+        <option *ngFor="let tipo of tiposInmuebles" [value]="tipo.id">{{ tipo.nombre }}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="tipoContrato" class="form-label">Tipo de Contrato</label>
+      <select id="tipoContrato" class="form-select" formControlName="tipoContrato" required>
+        <option value="">Selecciona un tipo de contrato</option>
+        <option *ngFor="let contrato of tiposContratos" [value]="contrato.id">{{ contrato.nombre }}</option>
+      </select>
+    </div>
+
+    <!-- Foto principal actual -->
+    <div class="mb-3">
+      <label class="form-label">Foto principal actual</label>
+      <div>
+        <img [src]="'http://localhost:8080' + inmueble.foto_principal" class="img-fluid rounded" style="max-height: 200px;">
       </div>
+    </div>
 
-      <!-- Subtítulo -->
-      <div class="mb-3">
-        <label for="subtitle" class="form-label">Subtítulo</label>
-        <input id="subtitle" type="text" class="form-control" formControlName="subtitle">
+    <!-- Nueva foto principal -->
+    <div class="mb-3">
+      <label for="nuevaFotoPrincipal" class="form-label">Nueva foto principal (opcional)</label>
+      <input type="file" id="nuevaFotoPrincipal" class="form-control" (change)="onNuevaFotoPrincipalChange($event)">
+    </div>
+
+    <!-- Galería actual -->
+    <div class="mb-3">
+      <label class="form-label">Galería actual</label>
+      <div class="d-flex flex-wrap gap-2">
+        <div *ngFor="let foto of galeriaActual; let i = index" class="position-relative">
+          <img [src]="'http://localhost:8080' + foto" class="img-thumbnail" style="width: 120px; height: 100px; object-fit: cover;">
+          <button type="button" class="btn-close position-absolute top-0 end-0" (click)="eliminarFotoGaleria(i)"></button>
+        </div>
       </div>
+    </div>
 
-      <!-- Descripción -->
-      <div class="mb-3">
-        <label for="descripcion" class="form-label">Descripción</label>
-        <textarea id="descripcion" class="form-control" formControlName="descripcion" rows="3"></textarea>
-      </div>
+    <!-- Añadir nuevas fotos -->
+    <div class="mb-3">
+      <label for="nuevasFotosGaleria" class="form-label">Añadir nuevas fotos a la galería</label>
+      <input type="file" id="nuevasFotosGaleria" class="form-control" multiple (change)="onNuevasFotosGaleriaChange($event)">
+    </div>
 
-      <!-- Área -->
-      <div class="mb-3">
-        <label for="area" class="form-label">Área (m²)</label>
-        <input id="area" type="number" class="form-control" formControlName="area">
-      </div>
+    <!-- Botón de guardar -->
+    <div class="d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary" [disabled]="inmuebleForm.invalid">
+        Guardar Cambios
+      </button>
+    </div>
 
-      <!-- Precio -->
-      <div class="mb-3">
-        <label for="precio" class="form-label">Precio (€)</label>
-        <input id="precio" type="number" class="form-control" formControlName="precio" required>
-      </div>
-
-      <!-- Localidad -->
-      <div class="mb-3">
-        <label for="localidad" class="form-label">Localidad</label>
-        <input id="localidad" type="text" class="form-control" formControlName="localidad" required>
-      </div>
-
-      <!-- Baños -->
-      <div class="mb-3">
-        <label for="banios" class="form-label">Baños</label>
-        <input id="banios" type="number" class="form-control" formControlName="banios">
-      </div>
-
-      <!-- Dormitorios -->
-      <div class="mb-3">
-        <label for="dormitorios" class="form-label">Dormitorios</label>
-        <input id="dormitorios" type="number" class="form-control" formControlName="dormitorios">
-      </div>
-
-      <!-- Tipo Inmueble -->
-      <div class="mb-3">
-        <label for="tipoInmueble" class="form-label">Tipo de Inmueble</label>
-        <select id="tipoInmueble" class="form-select" formControlName="tipoInmueble" required>
-          <option value="">Seleccione un tipo</option>
-          <option *ngFor="let tipo of tiposInmuebles" [value]="tipo.id">{{ tipo.nombre }}</option>
-        </select>
-      </div>
-
-      <!-- Tipo Contrato -->
-      <div class="mb-3">
-        <label for="tipoContrato" class="form-label">Tipo de Contrato</label>
-        <select id="tipoContrato" class="form-select" formControlName="tipoContrato" required>
-          <option value="">Seleccione un contrato</option>
-          <option *ngFor="let contrato of tiposContratos" [value]="contrato.id">{{ contrato.nombre }}</option>
-        </select>
-      </div>
-
-      <!-- Botón de guardar -->
-      <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary" [disabled]="inmuebleForm.invalid">
-          Guardar Cambios
-        </button>
-      </div>
-
-    </form>
-  </div>
+  </form>
+</div>

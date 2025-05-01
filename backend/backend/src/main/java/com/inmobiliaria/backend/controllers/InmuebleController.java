@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inmobiliaria.backend.dto.InmuebleRequestDTO;
 import com.inmobiliaria.backend.entities.Inmueble;
 import com.inmobiliaria.backend.services.InmuebleService;
@@ -32,7 +33,7 @@ public class InmuebleController {
 
     @Value("${uploads.folder}")
     private String uploadsFolder;
-    
+
     @Autowired
     private InmuebleService service;
 
@@ -98,16 +99,14 @@ public class InmuebleController {
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
         }
-    
+
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         String filePath = folder + fileName;
         file.transferTo(new File(filePath));
-    
+
         return "/" + uploadsFolder + fileName;
     }
-    
-    
-    
+
     // create inmueble with the differents foreign keys
 
     @PostMapping
@@ -162,19 +161,8 @@ public class InmuebleController {
         }
     }
 
-    // edit building and fk
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Integer id, @Valid @RequestBody InmuebleRequestDTO dto,
-            BindingResult result) {
-        if (result.hasErrors()) {
-            Map<String, String> errores = new HashMap<>();
-            result.getFieldErrors().forEach(err -> errores.put(err.getField(), err.getDefaultMessage()));
-            return ResponseEntity.badRequest().body(errores);
-        }
-
-        Inmueble updated = service.updateFromDTO(id, dto);
-        return ResponseEntity.ok(updated);
-    }
+   
+    
 
     // delete building and fk
     @DeleteMapping("/{id}")
@@ -187,7 +175,73 @@ public class InmuebleController {
                     .body(Collections.singletonMap("error", e.getMessage()));
         }
     }
-    
-    
-    
+ // edit building and fk
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateWithFiles(
+            @PathVariable Integer id,
+            @RequestParam("dto") String dtoJson,
+            @RequestParam(value = "nuevaFotoPrincipal", required = false) MultipartFile nuevaFotoPrincipal,
+            @RequestParam(value = "nuevasGaleria", required = false) List<MultipartFile> nuevasGaleria) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            InmuebleRequestDTO dto = mapper.readValue(dtoJson, InmuebleRequestDTO.class);
+            System.out.println("DTO recibido: " + dto);
+            System.out.println("tipoId: " + dto.tipoId);
+            if (nuevaFotoPrincipal != null) {
+                String nuevaRuta = saveFile(nuevaFotoPrincipal);
+                dto.foto_principal = nuevaRuta;
+            }
+
+            if (nuevasGaleria != null && !nuevasGaleria.isEmpty()) {
+                StringBuilder nuevasRutas = new StringBuilder(dto.galeria_fotos != null ? dto.galeria_fotos : "");
+                if (nuevasRutas.length() > 0 && !nuevasRutas.toString().endsWith(",")) {
+                    nuevasRutas.append(",");
+                }
+                for (MultipartFile foto : nuevasGaleria) {
+                    String path = saveFile(foto);
+                    nuevasRutas.append(path).append(",");
+                }
+                if (nuevasRutas.length() > 0 && nuevasRutas.charAt(nuevasRutas.length() - 1) == ',') {
+                    nuevasRutas.setLength(nuevasRutas.length() - 1);
+                }
+                dto.galeria_fotos = nuevasRutas.toString();
+            }
+           
+            Inmueble updated = service.updateFromDTO(id, dto);
+            return ResponseEntity.ok(updated);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Collections.singletonMap("error", "Error al actualizar el inmueble: " + e.getMessage()));
+        }
+    }
+
+    @DeleteMapping("/delete-file")
+    public ResponseEntity<?> deleteFile(@RequestParam("path") String path) {
+        try {
+            if (path.contains("/uploads/")) {
+                path = path.substring(path.indexOf("/uploads/"));
+            }
+
+            String absolutePath = System.getProperty("user.dir") + path;
+            File file = new File(absolutePath);
+            if (file.exists()) {
+                if (file.delete()) {
+                    return ResponseEntity.ok(Collections.singletonMap("mensaje", "Archivo eliminado correctamente"));
+                } else {
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                            .body(Collections.singletonMap("error", "No se pudo eliminar el archivo"));
+                }
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(Collections.singletonMap("error", "Archivo no encontrado"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Collections.singletonMap("error", "No se pudo eliminar el archivo: " + e.getMessage()));
+        }
+    }
+
 }

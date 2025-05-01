@@ -1,4 +1,4 @@
-<div class="container bg-light card col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 text-center my-4 p-3 shadow">
+<div *ngIf="inmueble" class="container bg-light card col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 text-center my-4 p-3 shadow">
 
   <img [src]="'http://localhost:8080' + inmueble.foto_principal" class="d-block w-100 rounded mb-3" alt="Imagen principal">
 

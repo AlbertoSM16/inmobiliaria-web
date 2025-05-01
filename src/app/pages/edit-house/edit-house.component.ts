@@ -1,131 +1,145 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { InmuebleService } from '../../services/inmueble.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { InmuebleService } from '../../services/inmueble.service';
+import { NgFor } from '@angular/common';
+import { HeaderComponent } from "../../components/header/header.component";
 import { TipoService } from '../../services/tipo.service';
-import { ContratoService } from '../../services/contrato.service';
-import { Tipo } from '../../models/tipo';
-import { Contract } from '../../models/contract';
-import { HeaderComponent } from '../../components/header/header.component';
-import { NgFor, NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TipoContratoService } from '../../services/tipoContrato.service';
-import { InmuebleTipoService } from '../../services/inmuebleTipo.service';
+import { CommonModule } from '@angular/common';
 import { TipoInmueble } from '../../models/tipoInmueble';
-
+import { Tipo } from '../../models/tipo';
+import { ContratoService } from '../../services/contrato.service';
+import { InmuebleTipoService } from '../../services/inmuebleTipo.service';
+import { TipoContratoService } from '../../services/tipoContrato.service';
+import { TipoContrato } from '../../models/tipoContrato';
+import { forkJoin } from 'rxjs';
 @Component({
-  selector: 'edit-house',
+  selector: 'app-edit-house',
   templateUrl: './edit-house.component.html',
-  styleUrl: './edit-house.component.css',
   standalone: true,
-  imports: [HeaderComponent, ReactiveFormsModule, NgIf, NgFor]
+  imports: [NgFor, HeaderComponent, ReactiveFormsModule,CommonModule],
 })
 export class EditHouseComponent implements OnInit {
-
   inmuebleForm!: FormGroup;
-  idInmueble!: number;
-  tiposInmuebles!: Tipo[];
-  tiposContratos!: Contract[];
-   typeBuilding !: TipoInmueble;
-    typeBuildingName !: Tipo;
-    typeContract !: any;
-    typeContractName !: any;
+  inmueble: any;
+  galeriaActual: string[] = [];
+  nuevasFotosGaleria: File[] = [];
+  nuevaFotoPrincipal?: File;
+  tiposInmuebles: any[] = [];
+  tiposContratos: any[] = [];
+  typeBuilding !: any;
+  typeBuildingName !: any;
+  typeContract !: any;
+  typeContractName !: any;
+
 
   constructor(
     private fb: FormBuilder,
-    private inmuebleService: InmuebleService,
-    private route: ActivatedRoute,
+  private inmuebleService: InmuebleService,
+     private route: ActivatedRoute,
+     private tipoContratoService: TipoContratoService,
+     private contratoService : ContratoService,
+     private inmuebleTipoService: InmuebleTipoService,
+     private tipoService: TipoService,
     private router: Router,
-    private tipoService: TipoService,
-    private contratoService: ContratoService,
-    private tipoContratoService: TipoContratoService,
-    private inmuebleTipoService: InmuebleTipoService
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
-    this.idInmueble = this.route.snapshot.params['id'];
-
-    this.inmuebleForm = this.fb.group({
-      titulo: ['', Validators.required],
-      subtitle: ['',Validators.required],
-      descripcion: ['',Validators.required],
-      area: ['',Validators.required],
-      precio: ['', Validators.required],
-      localidad: ['', Validators.required],
-      banios: [''],
-      dormitorios: [''],
-      tipoInmueble: ['', Validators.required],
-      tipoContrato: ['', Validators.required]
-    });
-
-    this.tipoService.getAll().subscribe(data => {
-      this.tiposInmuebles = data;
-    });
-
-    this.contratoService.getAll().subscribe(data => {
-      this.tiposContratos = data;
-    });
-
-    this.inmuebleService.getById(this.idInmueble).subscribe(data => {
-      this.tipoContratoService.getTypeContract(this.idInmueble).subscribe(dataContract =>{
-        this.typeContract = dataContract[0];
-        this.contratoService.getById(this.typeContract.contrato.id).subscribe(dataContractName =>{
-          this.typeContractName = dataContractName[0];
-
-        })
-      })
-      this.inmuebleTipoService.getTypeBuilding(this.idInmueble).subscribe(dataType => {
-        this.typeBuilding = dataType[0];
-        this.tipoService.getById(this.typeBuilding.tipoInmuebleId).subscribe(dataTipo =>{
-          this.typeBuildingName = dataTipo[0];
-        })
-      })
-      console.log(this.typeBuildingName);
-      console.log(this.typeContractName);
-      this.inmuebleForm.patchValue({
-        titulo: data.titulo,
-        subtitle: data.subtitulo,
-        descripcion: data.descripcion,
-        area: data.area,
-        precio: data.precio,
-        localidad: data.localidad,
-        banios: data.banios,
-        dormitorios: data.dormitorios,
-        tipoInmueble: this.typeBuilding,
-        tipoContrato: this.typeContract
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+  
+    this.inmuebleService.getById(id).subscribe(data => {
+      this.inmueble = data;
+      this.galeriaActual = data.galeria_fotos ? data.galeria_fotos.split(',') : [];
+  
+      forkJoin({
+        typeContract: this.tipoContratoService.getTypeContract(data.id),
+        typeBuilding: this.inmuebleTipoService.getTypeBuilding(data.id)
+      }).subscribe(({ typeContract, typeBuilding }) => {
+        this.typeContract = typeContract[0];
+        this.typeBuilding = typeBuilding[0];
+  
+        forkJoin({
+          typeContractName: this.contratoService.getById(this.typeContract.contrato.id),
+          typeBuildingName: this.tipoService.getById(this.typeBuilding.tipoInmuebleId),
+          tiposInmuebles: this.tipoService.getAll(),
+          tiposContratos: this.contratoService.getAll()
+        }).subscribe(({ typeContractName, typeBuildingName, tiposInmuebles, tiposContratos }) => {
+          this.typeContractName = typeContractName[0];
+          this.typeBuildingName = typeBuildingName[0];
+          this.tiposInmuebles = tiposInmuebles;
+          this.tiposContratos = tiposContratos;
+  
+          this.inmuebleForm = this.fb.group({
+            titulo: [this.inmueble.titulo],
+            subtitulo: [this.inmueble.subtitulo],
+            descripcion: [this.inmueble.descripcion],
+            area: [this.inmueble.area],
+            precio: [this.inmueble.precio],
+            localidad: [this.inmueble.localidad],
+            banios: [this.inmueble.banios],
+            dormitorios: [this.inmueble.dormitorios],
+            tipoId: [this.typeBuildingName.id],      
+            tipoContrato: [this.typeContractName.id]  
+          });
+        });
       });
     });
   }
 
-  guardarCambios(): void {
-    if (this.inmuebleForm.valid) {
-      const inmuebleActualizado = {
-        id: this.idInmueble,
-        titulo: this.inmuebleForm.get('titulo')?.value,
-        precio: this.inmuebleForm.get('precio')?.value,
-        descripcion: this.inmuebleForm.get('descripcion')?.value,
-        localidad: this.inmuebleForm.get('localidad')?.value,
-        banios: this.inmuebleForm.get('banios')?.value,
-        dormitorios: this.inmuebleForm.get('dormitorios')?.value,
-        subtitulo: this.inmuebleForm.get('subtitle')?.value,
-        area: this.inmuebleForm.get('area')?.value,
-        tipoId: this.inmuebleForm.get('tipoInmueble')?.value,
-        contratoId: this.inmuebleForm.get('tipoContrato')?.value,
-        foto_principal: '',   // No se modifica aquí
-        galeria_fotos: ''     // No se modifica aquí
-      };
+  eliminarFotoGaleria(index: number): void {
+    const foto = this.galeriaActual[index];
+    this.http.delete('http://localhost:8080/api/inmuebles/delete-file', {
+      params: { path: foto }
+    }).subscribe({
+      next: () => this.galeriaActual.splice(index, 1),
+      error: () => console.error('Error al eliminar la imagen del servidor')
+    });
+  }
 
-      this.inmuebleService.update(this.idInmueble, inmuebleActualizado).subscribe({
-        next: () => {
-          console.log('✅ Inmueble actualizado correctamente');
-          this.router.navigate(['/houses-list']);
-        },
-        error: (err) => {
-          console.error('❌ Error actualizando inmueble', err);
-        }
-      });
-    } else {
-      console.warn('⚠️ Formulario inválido');
+  onNuevasFotosGaleriaChange(event: any): void {
+    this.nuevasFotosGaleria = Array.from(event.target.files);
+  }
+
+  onNuevaFotoPrincipalChange(event: any): void {
+    this.nuevaFotoPrincipal = event.target.files[0];
+  }
+
+  guardarCambios(): void {
+    const formData = new FormData();
+    const formValues = this.inmuebleForm.value;
+
+    const dto = {
+      titulo: formValues.titulo,
+      precio: formValues.precio,
+      descripcion: formValues.descripcion,
+      localidad: formValues.localidad,
+      galeria_fotos: this.galeriaActual.join(','),
+      foto_principal: this.inmueble.foto_principal,
+      banios: formValues.banios,
+      area: formValues.area,
+      dormitorios: formValues.dormitorios,
+      subtitulo: formValues.subtitulo,
+      tipoId: formValues.tipoId,
+      contratoId: formValues.tipoContrato
+    };
+    console.log("DTO que se envía:", dto); 
+
+    formData.append('dto', JSON.stringify(dto));
+
+    if (this.nuevaFotoPrincipal) {
+      formData.append('nuevaFotoPrincipal', this.nuevaFotoPrincipal);
     }
+
+    this.nuevasFotosGaleria.forEach(file => {
+      formData.append('nuevasGaleria', file);
+    });
+
+    const id = this.route.snapshot.paramMap.get('id');
+    this.inmuebleService.updateWithFiles(id!, formData).subscribe(() => {
+      this.router.navigate(['/']);
+    });
   }
 }

@@ -25,8 +25,8 @@ import { Observable } from 'rxjs';
 export class HouseInfoComponent implements OnInit {
 
   inmueble !: Inmueble;
-  typeBuilding !: TipoInmueble;
-  typeBuildingName !: Tipo;
+  typeBuilding !: any;
+  typeBuildingName !: any;
   typeContract !: any;
   typeContractName !: any;
   isLoggedIn$!: Observable<boolean>; 
